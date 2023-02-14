@@ -11,12 +11,12 @@ const Navigation = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ml-auto">
-                    <Nav.Link as={Link} to="/">
+                    <Nav.Link as={Link} to="/reserve">
                         Home
                     </Nav.Link>
                 </Nav>
                 <Nav className="mr-auto">
-                    <Button variant="primary" className="mr-2">
+                    <Button as={Link} to="/" variant="primary" className="mr-2">
                         Login
                     </Button>
                     <Button variant="outline-primary">Register</Button>
