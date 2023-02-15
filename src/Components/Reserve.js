@@ -34,7 +34,7 @@ const Reserve = () => {
   return (
     <div>
       {data === null ? (
-        <p>Sinulla ei ole aktiivisia varauksia.</p>
+        <p>You have no active reservations.</p>
       ) : (
         <div>
           <ul>
@@ -44,7 +44,7 @@ const Reserve = () => {
           </ul>
         </div>
       )}
-      <button onClick={handleFetchData}>Varaa uusi IP-osoite</button>
+      <button onClick={handleFetchData}>New IP-address</button>
     </div>
   );
 }
