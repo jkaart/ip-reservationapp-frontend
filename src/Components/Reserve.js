@@ -1,16 +1,3 @@
-/*import React from "react";
-
-const Reserve = () => {
-    return (
-        <div>
-            <h1>Welcome to the Reserve Page!</h1>
-            <p>You are now logged in and able to make a reservation.</p>
-        </div>
-    );
-};
-
-export default Reserve; */
-
 import React, { useState, useEffect } from 'react';
 
 const Reserve = () => {
@@ -30,7 +17,14 @@ const Reserve = () => {
   const handleFetchData = () => {
     fetchData();
   };
-
+  
+  /*if (!LoggedIn)
+  {
+    return (
+      <p>Not logged in.</p>
+    )
+  }
+  */
   return (
     <div>
       {data === null ? (
