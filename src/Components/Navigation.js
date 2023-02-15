@@ -11,11 +11,10 @@ function Navigation() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="#home">Esedu IP Reserve</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/reserve" href="#home">Esedu IP Reserve</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/reserve">Reserve IP</Nav.Link>
             <Nav.Link as={Link} to="/admin">Admin Panel</Nav.Link>
             {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
