@@ -19,13 +19,13 @@ function Navigation() {
                     </Nav>
                     <Nav>
                         <NavDropdown title="User" id="collapsible-nav-dropdown">
-                            <NavDropdown.Item as={Link} to="/login">
+                            <NavDropdown.Item as={Link} to="/">
                                 Log In
                             </NavDropdown.Item>
                             <NavDropdown.Item>
                                 Register
                             </NavDropdown.Item>
-                            <NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/user">
                                 User Info
                             </NavDropdown.Item>
                             <NavDropdown.Divider />

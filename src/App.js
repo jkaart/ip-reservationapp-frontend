@@ -4,6 +4,7 @@ import Login from "./Components/Login";
 import Reserve from "./Components/Reserve";
 import Navigation from "./Components/Navigation";
 import Admin from "./Components/Admin";
+import User from "./Components/User";
 import { Container } from "react-bootstrap";
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
                     <Route exact path="/" element={<Login />} />
                     <Route path="/reserve" element={<Reserve />} />
                     <Route path="/admin" element={<Admin />} />
+                    <Route path="/user" element={<User/>} />
                 </Routes>
             </Container>
         </Router>
