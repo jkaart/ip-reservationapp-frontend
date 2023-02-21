@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
 
 function IPReservedTable(data) {
@@ -15,6 +15,7 @@ function IPReservedTable(data) {
                                 <th>#</th>
                                 <th>IP</th>
                                 <th>Reservation ends</th>
+                                <th>Modify reservation</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -32,6 +33,8 @@ function IPReservedTable(data) {
                                 <td>3</td>
                                 <td>10.36.64.22</td>
                                 <td>28.02.2023 - 10:00</td>
+                                <td><Button variant="success">Renew</Button>{' '}
+                                <Button variant="danger">Cancel</Button></td>
                             </tr>
                         </tbody>
                     </Table>
