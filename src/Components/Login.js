@@ -19,14 +19,14 @@ const Login = () => {
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email" placeholder="user@esedulainen.fi" />
                 <Form.Text className="text-muted">
-                    ^_^
+                    Enter your Esedulainen-email
                 </Form.Text>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" />
                 <Form.Text className="text-muted">
-                    OwO
+                    Your password is unique to the IP Reservation system
                 </Form.Text>
             </Form.Group>
             <Button variant="primary" type="submit">
