@@ -15,6 +15,7 @@ function IPReservedTable(data) {
                                 <th>#</th>
                                 <th>IP</th>
                                 <th>Reservation ends</th>
+                                <th>Description</th>
                                 <th>Modify reservation</th>
                             </tr>
                         </thead>
@@ -23,16 +24,23 @@ function IPReservedTable(data) {
                                 <td>1</td>
                                 <td>10.36.64.20</td>
                                 <td>28.02.2023 - 10:00</td>
+                                <td>Server</td>
+                                <td><Button variant="success">Renew</Button>{' '}
+                                <Button variant="danger">Cancel</Button></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>10.36.64.21</td>
                                 <td>28.02.2023 - 10:00</td>
+                                <td>Server</td>
+                                <td><Button variant="success">Renew</Button>{' '}
+                                <Button variant="danger">Cancel</Button></td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td>10.36.64.22</td>
                                 <td>28.02.2023 - 10:00</td>
+                                <td>Server</td>
                                 <td><Button variant="success">Renew</Button>{' '}
                                 <Button variant="danger">Cancel</Button></td>
                             </tr>
