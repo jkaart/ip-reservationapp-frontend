@@ -18,9 +18,6 @@ const Reserve = () => {
         fetchData();
     }, []);
 
-    const handleFetchData = () => {
-        fetchData();
-    };
     return (
         <Container>
             <UserProfile userData={data} />
