@@ -45,6 +45,15 @@ function IPReservedTable(data) {
                                 <Button variant="danger">Cancel</Button></td>
                             </tr>
                         </tbody>
+                        {/*<tbody>
+                            {tableData.map((rowData, index) => (
+                            <tr key={index}>
+                                {rowData.map((cellData, cellIndex) => (
+                                <td key={cellIndex}>{cellData}</td>
+                                ))}
+                            </tr>
+                            ))}
+                        </tbody>*/}
                     </Table>
                 )}
             </Col>
