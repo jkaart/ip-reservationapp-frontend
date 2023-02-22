@@ -18,10 +18,9 @@ function PasswordField(props) {
         <Form.Control
           type={showPassword ? 'text' : 'password'}
           value={password}
-          onChange={
-            (e) => {
+          onChange={(e) => {
               setPassword(e.target.value);
-              passCheck(e.target.value);
+              onChangeProp(e.target.value);
             }
           } // OUTPUT => <Form.Control onChange="setPassword(...); passCheck(this.value);" />
         />
