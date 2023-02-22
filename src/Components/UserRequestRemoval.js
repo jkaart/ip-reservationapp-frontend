@@ -26,7 +26,7 @@ function UserRequestRemoval(data) {
                                 <Button className="" variant="danger" type="submit">
                                     Confirm request
                                 </Button>&nbsp;&nbsp;
-                                <Button className="" variant="primary" type="submit">
+                                <Button /*style={{float: "right",}}*/ className="" variant="primary" type="submit">
                                     Cancel
                                 </Button>
                             </Card.Text>

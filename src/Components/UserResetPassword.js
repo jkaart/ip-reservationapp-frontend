@@ -1,6 +1,10 @@
 import React from 'react';
 import { Row, Col, Card, Container, Form, Button } from "react-bootstrap";
 import UserProfile from './UserInfo';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useState } from 'react';
+import PasswordField from './PasswordField';
+
 
 
 function UserResetPassword(data) {
@@ -15,8 +19,7 @@ function UserResetPassword(data) {
                 <Form>
                     <h3>Reset password</h3>
                     <Form.Group className="mb-3" controlId="formPassword">
-                        <Form.Label className="mt-2">Current Password</Form.Label>
-                        <Form.Control type="password" placeholder="Current Password" />
+                        <PasswordField />
                         <Form.Label className="mt-3">New Password</Form.Label>
                         <Form.Control type="password" placeholder="New Password" />
                         <Form.Control className='mt-2' type="password" placeholder="New Password confirm" />
