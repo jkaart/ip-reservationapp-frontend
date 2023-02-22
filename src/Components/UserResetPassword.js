@@ -3,7 +3,10 @@ import { Row, Col, Card, Container, Form, Button, FormLabel } from "react-bootst
 import UserProfile from './UserInfo';
 import PasswordField from './PasswordField';
 
-
+function passCheck(props) {
+    const { value } = props;
+    console.log(value);
+}
 
 function UserResetPassword(data) {
     //const [name, setName] = useState("");
@@ -20,8 +23,8 @@ function UserResetPassword(data) {
                         <FormLabel>Current Password</FormLabel>
                         <PasswordField />
                         <Form.Label className="mt-3">New Password</Form.Label>
-                        <PasswordField className="mb-1" />
-                        <PasswordField className="mt-1" />
+                        <PasswordField className="mb-1" id="1" onChange={true}/>
+                        <PasswordField className="" id="2" />
                         <Form.Text className="text-muted">
                             Entered passwords must differ.
                         </Form.Text>
