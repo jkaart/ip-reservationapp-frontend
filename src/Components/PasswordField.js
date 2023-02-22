@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { passCheck } from './UserResetPassword';
 
 function PasswordField(props) {
   const { className, id, onChangeProp } = props;
@@ -20,7 +19,7 @@ function PasswordField(props) {
           value={password}
           onChange={(e) => {
               setPassword(e.target.value);
-              onChangeProp(e.target.value);
+              onChangeProp(e.target.value, id);
             }
           } // OUTPUT => <Form.Control onChange="setPassword(...); passCheck(this.value);" />
         />

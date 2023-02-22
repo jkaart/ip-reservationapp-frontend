@@ -20,7 +20,7 @@ function UserResetPassword(data) {
                         <PasswordField />
                         <Form.Label className="mt-3">New Password</Form.Label>
                         <PasswordField className="mb-1" id="1" onChangeProp={passcheck}/>
-                        <PasswordField className="" id="2" />
+                        <PasswordField className="" id="2" onChangeProp={passcheck}/>
                         <Form.Text className="text-muted">
                             Entered passwords must differ.
                         </Form.Text>
@@ -34,8 +34,8 @@ function UserResetPassword(data) {
     );
 }
 
-var passcheck = function passCheck(value) {
-    console.log(value);
+var passcheck = function passCheck(value, id) {
+    console.log(value, id);
 }
 
 export default UserResetPassword;
