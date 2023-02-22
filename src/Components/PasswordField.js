@@ -12,7 +12,6 @@ function PasswordField() {
 
   return (
     <Form.Group controlId="password">
-      <Form.Label>Password:</Form.Label>
       <div className="input-group">
         <Form.Control
           type={showPassword ? 'text' : 'password'}
