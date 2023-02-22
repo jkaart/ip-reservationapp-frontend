@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-function PasswordField() {
+function PasswordField(props) {
+  const { className } = props;
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -11,7 +12,7 @@ function PasswordField() {
   };
 
   return (
-    <Form.Group controlId="password">
+    <Form.Group controlId="password" className={`password-field ${className}`}>
       <div className="input-group">
         <Form.Control
           type={showPassword ? 'text' : 'password'}
