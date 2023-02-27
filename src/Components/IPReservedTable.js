@@ -10,27 +10,21 @@ function IPReservedTable(data) {
                     <p>You have no active reservations.</p>
                 ) : (
                     <>
-                        <Row>
-                            <Col className="d-md-block d-sm-none" md='1'>
-                                #
-                            </Col>
-                            <Col className="d-md-block d-sm-none" md='2'>
+                        <Row className="bg-light fw-bold p-2 border rounded d-md-flex d-sm-none d-none">
+                            <Col className="d-md-block d-sm-none d-none" md='2'>
                                 IP
                             </Col>
-                            <Col className="d-md-block d-sm-none" md='3'>
+                            <Col className="d-md-block d-sm-none d-none" md='3'>
                                 Reservation ends
                             </Col>
-                            <Col className="d-md-block d-sm-none" md='4'>
+                            <Col className="d-md-block d-sm-none d-none" md='4'>
                                 Description
                             </Col>
-                            <Col className="d-md-block d-sm-none" md='2'>
+                            <Col className="d-md-block d-sm-none d-none" md='3'>
                                 Modify Reservation
                             </Col>
                         </Row>
-                        <Row>
-                            <Col sm md='1'>
-                                1
-                            </Col>
+                        <Row className="border-bottom p-2">
                             <Col sm md='2'>
                                 10.36.64.20
                             </Col>
@@ -40,9 +34,9 @@ function IPReservedTable(data) {
                             <Col sm md='4'>
                                 Server
                             </Col>
-                            <Col sm md='2'>
-                            <Button variant="success">Renew</Button>{' '}
-                                    <Button variant="danger">Cancel</Button>
+                            <Col sm md='3'>
+                                <Button variant="success">Renew</Button>{' '}
+                                <Button variant="danger">Cancel</Button>
                             </Col>
                         </Row>
  
