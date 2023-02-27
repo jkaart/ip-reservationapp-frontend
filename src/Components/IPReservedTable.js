@@ -9,52 +9,53 @@ function IPReservedTable(data) {
                 {data === null ? (
                     <p>You have no active reservations.</p>
                 ) : (
-                    <Table bordered hover>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>IP</th>
-                                <th>Reservation ends</th>
-                                <th>Description</th>
-                                <th>Modify reservation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>10.36.64.20</td>
-                                <td>28.02.2023 - 10:00</td>
-                                <td>Server</td>
-                                <td><Button variant="success">Renew</Button>{' '}
-                                <Button variant="danger">Cancel</Button></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>10.36.64.21</td>
-                                <td>28.02.2023 - 10:00</td>
-                                <td>Server</td>
-                                <td><Button variant="success">Renew</Button>{' '}
-                                <Button variant="danger">Cancel</Button></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>10.36.64.22</td>
-                                <td>28.02.2023 - 10:00</td>
-                                <td>Server</td>
-                                <td><Button variant="success">Renew</Button>{' '}
-                                <Button variant="danger">Cancel</Button></td>
-                            </tr>
-                        </tbody>
-                        {/*<tbody>
-                            {tableData.map((rowData, index) => (
-                            <tr key={index}>
-                                {rowData.map((cellData, cellIndex) => (
-                                <td key={cellIndex}>{cellData}</td>
+                    <>
+                        <Row>
+                            <Col className=".d-block .d-sm-none" md='1'>
+                                #
+                            </Col>
+                            <Col className=".d-block .d-sm-none" md='2'>
+                                IP
+                            </Col>
+                            <Col className=".d-block .d-sm-none" md='3'>
+                                Reservation ends
+                            </Col>
+                            <Col className=".d-block .d-sm-none" md='4'>
+                                Description
+                            </Col>
+                            <Col className=".d-block .d-sm-none" md='2'>
+                                Modify Reservation
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col sm md='1'>
+                                1
+                            </Col>
+                            <Col sm md='2'>
+                                10.36.64.20
+                            </Col>
+                            <Col sm md='3'>
+                                28.02.2023 - 7 days
+                            </Col>
+                            <Col sm md='4'>
+                                Server
+                            </Col>
+                            <Col sm md='2'>
+                            <Button variant="success">Renew</Button>{' '}
+                                    <Button variant="danger">Cancel</Button>
+                            </Col>
+                        </Row>
+ 
+                            {/*<tbody>
+                                {tableData.map((rowData, index) => (
+                                <tr key={index}>
+                                    {rowData.map((cellData, cellIndex) => (
+                                    <td key={cellIndex}>{cellData}</td>
+                                    ))}
+                                </tr>
                                 ))}
-                            </tr>
-                            ))}
-                        </tbody>*/}
-                    </Table>
+                            </tbody>*/}
+                    </>
                 )}
             </Col>
         </Row>
