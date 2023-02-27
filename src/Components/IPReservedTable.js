@@ -11,19 +11,19 @@ function IPReservedTable(data) {
                 ) : (
                     <>
                         <Row>
-                            <Col className=".d-block .d-sm-none" md='1'>
+                            <Col className="d-md-block d-sm-none" md='1'>
                                 #
                             </Col>
-                            <Col className=".d-block .d-sm-none" md='2'>
+                            <Col className="d-md-block d-sm-none" md='2'>
                                 IP
                             </Col>
-                            <Col className=".d-block .d-sm-none" md='3'>
+                            <Col className="d-md-block d-sm-none" md='3'>
                                 Reservation ends
                             </Col>
-                            <Col className=".d-block .d-sm-none" md='4'>
+                            <Col className="d-md-block d-sm-none" md='4'>
                                 Description
                             </Col>
-                            <Col className=".d-block .d-sm-none" md='2'>
+                            <Col className="d-md-block d-sm-none" md='2'>
                                 Modify Reservation
                             </Col>
                         </Row>
