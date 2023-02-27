@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Button, Card } from "react-bootstrap";
+import { Row, Col, Button, Card, Stack } from "react-bootstrap";
 import Collapse from 'react-bootstrap/Collapse';
 
 function UserRequestRemoval(data) {
@@ -23,12 +23,14 @@ function UserRequestRemoval(data) {
                         </Card.Title>
                         <Collapse in={open} dimension="width">
                             <Card.Text id="removal-button">
-                                <Button className="" variant="danger" type="submit">
-                                    Confirm request
-                                </Button>&nbsp;&nbsp;
-                                <Button /*style={{float: "right",}}*/ className="" variant="primary" type="submit">
-                                    Cancel
-                                </Button>
+                                <Stack direction="horizontal" gap={3}>
+                                    <Button className="" variant="danger" type="submit">
+                                        Confirm request
+                                    </Button>
+                                    <Button className="" variant="primary" type="submit">
+                                        Cancel
+                                    </Button>
+                                </Stack>
                             </Card.Text>
                         </Collapse>
                     </Card.Body>
