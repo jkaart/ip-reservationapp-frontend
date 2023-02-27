@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function PasswordField(props) {
-  const { className, id, onChangeProp } = props;
+  const { className, id, onChangeProp, onBlurProp } = props;
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -21,7 +21,8 @@ function PasswordField(props) {
               setPassword(e.target.value);
               if (typeof onChangeProp === "function"){ onChangeProp(e.target.value, id); }
             }
-          } // OUTPUT => <Form.Control onChange="setPassword(...); passCheck(this.value);" />
+          } 
+          onBlur={onBlurProp}// OUTPUT => <Form.Control onChange="setPassword(...); passCheck(this.value);" />
         />
         <div className="input-group-append">
           <button

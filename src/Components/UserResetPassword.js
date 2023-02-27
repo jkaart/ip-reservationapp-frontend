@@ -2,13 +2,29 @@ import React from 'react';
 import { Row, Col, Card, Container, Form, Button, FormLabel } from "react-bootstrap";
 import UserProfile from './UserInfo';
 import PasswordField from './PasswordField';
+import { useState } from 'react';
+
 
 
 function UserResetPassword(data) {
     //const [name, setName] = useState("");
     //const [email, setEmail] = useState("");
     //const [group, setGroup] = useState("");
+
+    const [newPass1, setNewPass1] = useState('');
+    const [newPass2, setNewPass2] = useState('');
+
     data = "";
+
+    const handleNewPasswordCheck = () => {
+        if (newPass1 === newPass2) {
+            // Passwords match
+            console.log('Passwords match!');
+          } else {
+            // Passwords do not match
+            console.log('Passwords do not match!');
+          }
+    };
 
     return (
         <Row>
@@ -19,8 +35,8 @@ function UserResetPassword(data) {
                         <FormLabel>Current Password</FormLabel>
                         <PasswordField />
                         <Form.Label className="mt-3">New Password</Form.Label>
-                        <PasswordField className="mb-1" id="1" onChangeProp={passcheck}/>
-                        <PasswordField className="" id="2" onChangeProp={passcheck}/>
+                        <PasswordField className="mb-1" id="newPass1" onChangeProp={setNewPass1} onBlurProp={handleNewPasswordCheck}/>
+                        <PasswordField className="" id="newPass2" onChangeProp={setNewPass2} onBlurProp={handleNewPasswordCheck}/>
                         <Form.Text className="text-muted">
                             Entered passwords must differ.
                         </Form.Text>
@@ -32,10 +48,6 @@ function UserResetPassword(data) {
             </Col>
         </Row>
     );
-}
-
-var passcheck = function passCheck(value, id) {
-    console.log(value, id);
 }
 
 export default UserResetPassword;
