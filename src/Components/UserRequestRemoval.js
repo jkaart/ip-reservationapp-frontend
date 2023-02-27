@@ -27,6 +27,7 @@ function UserRequestRemoval(data) {
                                     <Button className="" variant="danger" type="submit">
                                         Confirm request
                                     </Button>
+                                    {/*<div className="vr" />*/}
                                     <Button className="" variant="primary" type="submit">
                                         Cancel
                                     </Button>
