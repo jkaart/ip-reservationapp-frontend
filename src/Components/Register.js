@@ -28,6 +28,12 @@ const handleNewPasswordCheck = () => {
     return (
         <Form>
             <Form.Group>
+                <Form.Label>First Name</Form.Label>
+                <Form.Control type="text" placeholder="Name" />
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control type="text" placeholder="Last Name" />
+                <Form.Label>Phonenumber</Form.Label>
+                <Form.Control type="tel" placeholder="012 333 4444" />
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email" placeholder="user@esedulainen.fi" />
                 <Form.Text className="text-muted">
