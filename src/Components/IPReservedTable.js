@@ -12,7 +12,7 @@ function IPReservedTable(data) {
                 ) : (
                     <>
                         <IPTableHeader></IPTableHeader>
-                        <Row className="border rounded m-0 p-2 pt-3">
+                        <Row className="border rounded m-0 p-2">
                             <Col sm md='2'>
                                 10.36.64.20
                             </Col>
