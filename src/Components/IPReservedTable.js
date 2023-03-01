@@ -23,8 +23,8 @@ function IPReservedTable(data) {
                                 Server
                             </Col>
                             <Col sm md='3'>
-                                <Button variant="success">Renew</Button>{' '}
-                                <Button variant="danger">Cancel</Button>
+                                <Button variant="success" className="border-dark p-2">Renew</Button>{' '}
+                                <Button variant="danger" className="border-dark p-2">Cancel</Button>
                             </Col>
                         </Row>
 

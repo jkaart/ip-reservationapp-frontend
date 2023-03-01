@@ -5,8 +5,7 @@ import PasswordField from './PasswordField';
 
 const Register = () => {
     const [username, setUsername] = useState("");
-    const [Pass1, setNewPass1] = useState('');
-    const [Pass2, setNewPass2] = useState('');
+    const [pass, setNewPass] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
@@ -14,16 +13,6 @@ const Register = () => {
         // Simulate a successful login
         navigate("/reserve");
     };
-
-const handleNewPasswordCheck = () => {
-    if (Pass1 === Pass2) {
-        // Passwords match
-        console.log('Passwords match!');
-    } else {
-        // Passwords do not match
-        console.log('Passwords do not match!');
-    }
-};
 
     return (
         <Form>
@@ -38,21 +27,19 @@ const handleNewPasswordCheck = () => {
                 </Form.Group>
             </Row>*/}
             <Form.Group>
-                
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="user@esedulainen.fi" />
-                <Form.Text className="text-muted">
-                    Enter your Esedulainen-email
-                </Form.Text>
+                <Form.Group>
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control type="email" placeholder="user@esedulainen.fi" />
+                    <Form.Text className="text-muted">
+                        Enter your Esedulainen-email
+                    </Form.Text>
+                </Form.Group>
+                <Form.Label>Password</Form.Label>
+                <PasswordField className="mb-2" id="pass" onChangeProp={setNewPass} />
                 <Form.Label>Group</Form.Label>
                 <Form.Control type="text" placeholder="Group 1" />
             </Form.Group>
-            <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <PasswordField className="mb-2" id="Pass1" onChangeProp={setNewPass1} onBlurProp={handleNewPasswordCheck} />
-                <PasswordField className="" id="Pass2" onChangeProp={setNewPass2} onBlurProp={handleNewPasswordCheck} />
-            </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" className="mt-3">
                 Register
             </Button>
         </Form>
