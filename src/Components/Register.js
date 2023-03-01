@@ -36,10 +36,8 @@ const handleNewPasswordCheck = () => {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Password</Form.Label>
-                <PasswordField className="" id="Pass1" onChangeProp={setNewPass1} onBlurProp={handleNewPasswordCheck} />
-                <Form.Text className="mt-1">Enter New Password</Form.Text>
+                <PasswordField className="mb-2" id="Pass1" onChangeProp={setNewPass1} onBlurProp={handleNewPasswordCheck} />
                 <PasswordField className="" id="Pass2" onChangeProp={setNewPass2} onBlurProp={handleNewPasswordCheck} />
-                <Form.Text>Repeat Password</Form.Text>
             </Form.Group>
             <Button variant="primary" type="submit">
                 Register
