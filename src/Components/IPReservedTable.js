@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Container } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
+import { IPTableHeader } from "./IPTableHeader";
 
 function IPReservedTable(data) {
     return (
@@ -10,21 +11,8 @@ function IPReservedTable(data) {
                     <p>You have no active reservations.</p>
                 ) : (
                     <>
-                        <Row className="bg-light fw-bold p-2 border rounded d-md-flex d-sm-none d-none">
-                            <Col className="d-md-block d-sm-none d-none" md='2'>
-                                IP
-                            </Col>
-                            <Col className="d-md-block d-sm-none d-none" md='3'>
-                                Reservation ends
-                            </Col>
-                            <Col className="d-md-block d-sm-none d-none" md='4'>
-                                Description
-                            </Col>
-                            <Col className="d-md-block d-sm-none d-none" md='3'>
-                                Modify Reservation
-                            </Col>
-                        </Row>
-                        <Row className="border-bottom p-2">
+                        <IPTableHeader></IPTableHeader>
+                        <Row className="border rounded m-0 p-2 pt-3">
                             <Col sm md='2'>
                                 10.36.64.20
                             </Col>
@@ -39,8 +27,9 @@ function IPReservedTable(data) {
                                 <Button variant="danger">Cancel</Button>
                             </Col>
                         </Row>
- 
-                            {/*<tbody>
+
+
+                        {/*<tbody>
                                 {tableData.map((rowData, index) => (
                                 <tr key={index}>
                                     {rowData.map((cellData, cellIndex) => (
