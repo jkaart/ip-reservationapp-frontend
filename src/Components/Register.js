@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Form } from 'react-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import PasswordField from './PasswordField';
 
 const Register = () => {
@@ -27,11 +27,17 @@ const handleNewPasswordCheck = () => {
 
     return (
         <Form>
+            <Row>
+                <Form.Group as={Col}>
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control type="text" placeholder="Name" />
+                </Form.Group>
+                <Form.Group as={Col}>
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control type="text" placeholder="Last Name" />
+                </Form.Group>
+            </Row>
             <Form.Group>
-                <Form.Label>First Name</Form.Label>
-                <Form.Control type="text" placeholder="Name" />
-                <Form.Label>Last Name</Form.Label>
-                <Form.Control type="text" placeholder="Last Name" />
                 <Form.Label>Phonenumber</Form.Label>
                 <Form.Control type="tel" placeholder="012 333 4444" />
                 <Form.Label>Email address</Form.Label>
