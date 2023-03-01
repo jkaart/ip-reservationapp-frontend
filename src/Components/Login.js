@@ -1,39 +1,90 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Form } from 'react-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
+import { render } from "@testing-library/react";
+import Navigation from "./Navigation";
 
-const Login = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+export const Login = (props) => {
+    const login = props.isLoggedIn;
+    const setLogin = props.setIsLoggedIn;
+    const admin = props.isAdmin;
+    const setAdmin = props.setIsAdmin;
+
     const navigate = useNavigate();
+    const data = { success: false };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Simulate a successful login
-        navigate("/reserve");
+        /*
+        const response = await fetch('login', { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username, password
+            })
+        });
+        
+        const data = await response.json();
+*/
+        //debug
+
+        await new Promise((resolve) => {
+            setTimeout(() => {
+                data.success = true;
+                setLogin(data.success);
+                resolve();
+            }, 1000);
+        });
+
+
+        if (data.success) {
+            console.log("Login successful:", login, data.success);
+            navigate("/");
+        } else {
+            console.log("Login failed:", login, data.success);
+        }
+
+        //navigate("/reserve");
     };
 
     return (
-        <Form>
-            <Form.Group>
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="user@esedulainen.fi" />
-                <Form.Text className="text-muted">
-                    Enter your Esedulainen-email
-                </Form.Text>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
-                <Form.Text className="text-muted">
-                    Your password is unique to the IP Reservation system
-                </Form.Text>
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                Login
-            </Button>
-        </Form>
+        <Row>
+            <Col md='5'>
+                <Form>
+                    <Form.Group className="mt-4">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control type="email" placeholder="user@esedulainen.fi" />
+                        <Form.Text className="text-muted">
+                            Enter your Esedulainen-email
+                        </Form.Text>
+                    </Form.Group>
+                    <Form.Group className="mt-2">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Text className="text-muted">
+                            Your password is unique to the IP Reservation system
+                        </Form.Text>
+                    </Form.Group>
+                    <Button variant="primary" type="submit" onClick={handleSubmit}>
+                        Login
+                    </Button>
+                </Form>
+            </Col>
+        </Row>
     );
 };
 
-export default Login;
+export const Logout = (props) => {
+    const navigate = useNavigate();
+
+    props.setIsLoggedIn(false);
+    props.setIsAdmin(false);
+
+    navigate("/");
+
+    console.log(props.isLoggedIn);
+    console.log(props.isAdmin);
+
+};

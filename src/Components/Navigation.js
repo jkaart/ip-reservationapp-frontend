@@ -6,32 +6,26 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
+function Navigation(props) {
+    
+    const { isLoggedIn, setIsLoggedIn, isAdmin } = props;
 
-function Navigation() {
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand as={Link} to="/reserve" href="#home">Esedu IP Reserve</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/" href="#home">Esedu IP Reserve</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link as={Link} to="/admin">Admin Panel</Nav.Link>
+                        { isAdmin && <Nav.Link as={Link} to="/admin">Admin Panel</Nav.Link> }
                     </Nav>
                     <Nav>
                         <NavDropdown title="User" id="collapsible-nav-dropdown">
-                            <NavDropdown.Item as={Link} to="/">
-                                Log In
-                            </NavDropdown.Item>
-                            <NavDropdown.Item>
-                                Register
-                            </NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/user">
-                                User Info
-                            </NavDropdown.Item>
+                            { !isLoggedIn && <NavDropdown.Item as={Link} to="/">Log In</NavDropdown.Item>}
+                            { isLoggedIn && <NavDropdown.Item as={Link} to="/user">User Info</NavDropdown.Item> }
                             <NavDropdown.Divider />
-                            <NavDropdown.Item>
-                                Log Out
-                            </NavDropdown.Item>
+                            { !isLoggedIn && <NavDropdown.Item>Register</NavDropdown.Item>}
+                            { isLoggedIn && <NavDropdown.Item as={Link} to="/logout">Log Out</NavDropdown.Item> }
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
