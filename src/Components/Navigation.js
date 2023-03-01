@@ -22,7 +22,7 @@ function Navigation() {
                             <NavDropdown.Item as={Link} to="/">
                                 Log In
                             </NavDropdown.Item>
-                            <NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/register">
                                 Register
                             </NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/user">
