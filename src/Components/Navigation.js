@@ -24,7 +24,7 @@ function Navigation(props) {
                             { !isLoggedIn && <NavDropdown.Item as={Link} to="/">Log In</NavDropdown.Item>}
                             { isLoggedIn && <NavDropdown.Item as={Link} to="/user">User Info</NavDropdown.Item> }
                             <NavDropdown.Divider />
-                            { !isLoggedIn && <NavDropdown.Item>Register</NavDropdown.Item>}
+                            { !isLoggedIn && <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>}
                             { isLoggedIn && <NavDropdown.Item as={Link} to="/logout">Log Out</NavDropdown.Item> }
                         </NavDropdown>
                     </Nav>

@@ -5,6 +5,7 @@ import Reserve from "./Components/Reserve";
 import Navigation from "./Components/Navigation";
 import Admin from "./Components/Admin";
 import User from "./Components/User";
+import Register from "./Components/Register";
 import { Container } from "react-bootstrap";
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
                     } />
                     <Route path="/admin" element={<Admin />} />
                     <Route path="/user" element={<User/>} />
+                    <Route path="/register" element={<Register/>} />
                     <Route path="/logout" element={<Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>} />
                 </Routes>
             </Container>
