@@ -19,11 +19,11 @@ const Reserve = () => {
     }, []);
 
     return (
-        <Container>
+        <>
             <UserProfile userData={data} />
             <IPReservation/>
             <IPReservedTable ipData={data} />
-        </Container>
+        </>
     );
 }
 
