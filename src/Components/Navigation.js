@@ -8,7 +8,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function Navigation(props) {
     
-    const { isLoggedIn, setIsLoggedIn, isAdmin } = props;
+    const { isLoggedIn, isAdmin } = props;
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">

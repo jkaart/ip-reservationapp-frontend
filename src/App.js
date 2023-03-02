@@ -12,9 +12,11 @@ const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
 
+    console.log("DEBUG( State of the app: isLoggedIn is", isLoggedIn, "and isAdmin is", isAdmin, ")");
+
     return (
         <Router>
-            <Navigation isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>
+            <Navigation isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
             <Container>
                 <Routes>
                     <Route exact path="/" element={ 
