@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Container } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
 import { IPTableHeader } from "./IPTableHeader";
-import { FiSlash } from "react-icons/fi";
+import { FiSlash, FiEdit, FiPlusSquare } from "react-icons/fi";
+import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 
 function IPReservedTable(data) {
     return (
@@ -18,13 +19,13 @@ function IPReservedTable(data) {
                                 10.36.64.20
                             </Col>
                             <Col sm md='3'>
-                                28.02.2023 - 7 days
+                                28.02.2023 - 7 days <Button variant="light" className="p-1"> <FiPlusSquare /> </Button>
                             </Col>
                             <Col sm md='6'>
-                                Server
-                            </Col>
+                                Server <Button variant="light" className="p-1"> <FiEdit /> </Button>
+                            </Col> 
                             <Col sm md='1'>
-                                <Button variant="danger" className="border-dark p-2"> <FiSlash /> </Button>
+                                <Button variant="danger" className="border-dark p-2"> <ImCheckboxChecked /> <ImCheckboxUnchecked /> </Button>
                             </Col>
                         </Row>
 
