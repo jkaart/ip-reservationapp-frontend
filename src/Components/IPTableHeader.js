@@ -10,11 +10,11 @@ export const IPTableHeader = () => {
             <Col className="d-md-block d-sm-none d-none" md='3'>
                 Reservation ends
             </Col>
-            <Col className="d-md-block d-sm-none d-none" md='4'>
+            <Col className="d-md-block d-sm-none d-none" md='6'>
                 Description
             </Col>
-            <Col className="d-md-block d-sm-none d-none" md='3'>
-                Modify Reservation
+            <Col className="d-md-block d-sm-none d-none" md='1'>
+                Remove
             </Col>
         </Row>
     );

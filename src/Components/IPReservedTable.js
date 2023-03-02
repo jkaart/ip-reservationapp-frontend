@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Container } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
 import { IPTableHeader } from "./IPTableHeader";
+import { FiSlash } from "react-icons/fi";
 
 function IPReservedTable(data) {
     return (
@@ -19,12 +20,11 @@ function IPReservedTable(data) {
                             <Col sm md='3'>
                                 28.02.2023 - 7 days
                             </Col>
-                            <Col sm md='4'>
+                            <Col sm md='6'>
                                 Server
                             </Col>
-                            <Col sm md='3'>
-                                <Button variant="success" className="border-dark p-2">Renew</Button>{' '}
-                                <Button variant="danger" className="border-dark p-2">Cancel</Button>
+                            <Col sm md='1'>
+                                <Button variant="danger" className="border-dark p-2"> <FiSlash /> </Button>
                             </Col>
                         </Row>
 
