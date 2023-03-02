@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { render } from "@testing-library/react";
 import Navigation from "./Navigation";
+import PasswordField from "./PasswordField";
 
 export const Login = (props) => {
     const login = props.isLoggedIn;
@@ -52,8 +53,8 @@ export const Login = (props) => {
         <Row>
             <Col md='5'>
                 <Form>
-                    <Form.Label></Form.Label>
-                    <Form.Group className="mt-4">
+                    <Form.Label className="text-uppercase fs-2 mt-2">Log in</Form.Label>
+                    <Form.Group>
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="user@esedulainen.fi" />
                         <Form.Text className="text-muted">
@@ -62,7 +63,7 @@ export const Login = (props) => {
                     </Form.Group>
                     <Form.Group className="mt-2">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control className="mb-2" type="password" placeholder="Password" />
+                        <PasswordField id="password" />
                         <Form.Text className="text-muted">
                             Your password is unique to the IP Reservation system
                         </Form.Text>
