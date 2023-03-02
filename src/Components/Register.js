@@ -15,7 +15,7 @@ const Register = () => {
     };
 
     return (
-        <Form>
+        <Row >
             {/*<Row>
                 <Form.Group as={Col}>
                     <Form.Label>First Name</Form.Label>
@@ -26,27 +26,32 @@ const Register = () => {
                     <Form.Control type="text" placeholder="Last Name" />
                 </Form.Group>
             </Row>*/}
-            <Row>
-                <Col md="5">
-                    <Form.Group>
-                        <Form.Group>
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="user@esedulainen.fi" />
-                            <Form.Text className="text-muted">
-                                Enter your Esedulainen-email
-                            </Form.Text>
-                        </Form.Group>
+            <Col md="5">
+                <Form>
+                    <Form.Group className="mt-4">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control type="email" placeholder="user@esedulainen.fi" />
+                        <Form.Text className="text-muted">
+                            Enter your Esedulainen-email
+                        </Form.Text>
+                    </Form.Group>
+                    <Form.Group className="mt-2">
                         <Form.Label>Password</Form.Label>
                         <PasswordField className="mb-2" id="pass" onChangeProp={setNewPass} />
+                        <Form.Text className="text-muted">
+                            Your password is unique to the IP Reservation system
+                        </Form.Text>
+                    </Form.Group>
+                    <Form.Group>
                         <Form.Label>Group</Form.Label>
                         <Form.Control type="text" placeholder="Group 1" />
                     </Form.Group>
                     <Button variant="primary" type="submit" className="mt-3">
                         Register
                     </Button>
-                </Col>
-            </Row>
-        </Form>
+                </Form>
+            </Col>
+        </Row >
     );
 };
 

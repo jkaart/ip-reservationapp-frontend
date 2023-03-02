@@ -23,6 +23,7 @@ function PasswordField(props) {
             }
           } 
           onBlur={onBlurProp}// OUTPUT => <Form.Control onChange="setPassword(...); passCheck(this.value);" />
+          placeholder='Password'
         />
         <div className="input-group-append">
           <button
