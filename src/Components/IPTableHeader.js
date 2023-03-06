@@ -13,7 +13,7 @@ export const IPTableHeader = () => {
             <Col className="d-md-block d-sm-none d-none" md='6'>
                 Description
             </Col>
-            <Col className="d-md-block d-sm-none d-none" md='1'>
+            <Col className="d-md-block d-sm-none d-none text-end" md='1'>
                 Select
             </Col>
         </Row>
