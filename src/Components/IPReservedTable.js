@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Container } from "react-bootstrap";
 import { IPTableHeader } from "./IPTableHeader";
+import { IPTableFooter } from "./IPTableFooter";
 import { FiEdit, FiPlusSquare, FiSquare, FiCheckSquare } from "react-icons/fi";
 import { IconContext } from "react-icons";
+import EditButton from "./EditButton";
 
 function IPReservedTable(data) {
     const [check, checked] = useState(false);
@@ -27,14 +29,14 @@ function IPReservedTable(data) {
                                     <Button variant="" className="p-0 float-end"> <FiPlusSquare /> </Button>
                                 </Col>
                                 <Col sm md='6'>
-                                    <span className="align-middle">Server</span>
-                                    <Button variant="" className="p-0 float-end"> <FiEdit /> </Button>
+                                    <EditButton />
                                 </Col>
                                 <Col sm md='1' className=''>
                                     <Button variant="" className="p-0 float-end" onClick={handleToggleCheckbox}> {check ? <FiCheckSquare /> : <FiSquare />}  </Button>
                                 </Col>
                             </Row>
                         </IconContext.Provider>
+                        <IPTableFooter></IPTableFooter>
 
 
                         {/*<tbody>
