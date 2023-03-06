@@ -29,7 +29,7 @@ function IPReservedTable(data) {
                                 Server <Button variant="light" className="p-1"> <FiEdit /> </Button>
                             </Col> 
                             <Col sm md='1'>
-                                <Button variant="danger" className="border-dark p-2" onClick={handleToggleCheckbox}> {check ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}  </Button>
+                                <Button variant="danger" className="border-dark p-2" onClick={handleToggleCheckbox}> {check ? <ImCheckboxChecked size={25} /> : <ImCheckboxUnchecked size={25} />}  </Button>
                             </Col>
                         </Row>
 
