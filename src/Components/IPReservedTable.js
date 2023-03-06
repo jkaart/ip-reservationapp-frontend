@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Container } from "react-bootstrap";
-import Table from 'react-bootstrap/Table';
 import { IPTableHeader } from "./IPTableHeader";
-import { FiSlash, FiEdit, FiPlusSquare } from "react-icons/fi";
-import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
+import { FiEdit, FiPlusSquare, FiSquare, FiCheckSquare } from "react-icons/fi";
 
 function IPReservedTable(data) {
     const [check, checked] = useState(false);
     const handleToggleCheckbox = () => {
         checked(!check);
-      };
+    };
     return (
         <Row className="mt-4">
             <Col>
@@ -20,16 +18,18 @@ function IPReservedTable(data) {
                         <IPTableHeader></IPTableHeader>
                         <Row className="border rounded m-0 p-2">
                             <Col sm md='2'>
-                                10.36.64.20
+                                <span className="align-middle">10.36.64.20</span>
                             </Col>
                             <Col sm md='3'>
-                                28.02.2023 - 7 days <Button variant="light" className="p-1"> <FiPlusSquare /> </Button>
+                                <span className="align-middle">28.02.2023 - 7 days</span>
+                                <Button variant="" className="p-0 float-end"> <FiPlusSquare size={30} /> </Button>
                             </Col>
                             <Col sm md='6'>
-                                Server <Button variant="light" className="p-1"> <FiEdit /> </Button>
-                            </Col> 
-                            <Col sm md='1'>
-                                <Button variant="danger" className="border-dark p-2" onClick={handleToggleCheckbox}> {check ? <ImCheckboxChecked size={25} /> : <ImCheckboxUnchecked size={25} />}  </Button>
+                                <span className="align-middle">Server</span>
+                                <Button variant="" className="p-0 float-end"> <FiEdit size={30} /> </Button>
+                            </Col>
+                            <Col sm md='1' className=''>
+                                <Button variant="" className="p-0 float-end" onClick={handleToggleCheckbox}> {check ? <FiCheckSquare size={30} /> : <FiSquare size={30} />}  </Button>
                             </Col>
                         </Row>
 

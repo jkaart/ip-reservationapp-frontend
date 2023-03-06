@@ -14,7 +14,7 @@ export const IPTableHeader = () => {
                 Description
             </Col>
             <Col className="d-md-block d-sm-none d-none" md='1'>
-                Remove
+                Select
             </Col>
         </Row>
     );
