@@ -6,6 +6,10 @@ import { FiSlash, FiEdit, FiPlusSquare } from "react-icons/fi";
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 
 function IPReservedTable(data) {
+    const [check, checked] = useState(false);
+    const handleToggleCheckbox = () => {
+        checked(!check);
+      };
     return (
         <Row className="mt-4">
             <Col>
@@ -25,7 +29,7 @@ function IPReservedTable(data) {
                                 Server <Button variant="light" className="p-1"> <FiEdit /> </Button>
                             </Col> 
                             <Col sm md='1'>
-                                <Button variant="danger" className="border-dark p-2"> <ImCheckboxChecked /> <ImCheckboxUnchecked /> </Button>
+                                <Button variant="danger" className="border-dark p-2" onClick={handleToggleCheckbox}> {check ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}  </Button>
                             </Col>
                         </Row>
 
