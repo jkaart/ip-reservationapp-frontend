@@ -23,7 +23,7 @@ function EditButton() {
       {editing ? (
         <input type="text" value={text} onChange={handleInputChange} onBlur={handleInputBlur} />
       ) : (
-        <span>{text}</span>
+        <span className="align-middle">{text}</span>
       )}
       <Button variant="" className="p-0 float-end" onClick={handleButtonClick}> <FiEdit /> </Button>
     </div>
