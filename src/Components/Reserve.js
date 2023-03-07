@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from "react-bootstrap";
 import UserProfile from './UserInfo';
-import IPReservation from './IPReservation';
 import IPReservedTable from './IPReservedTable';
 
 const Reserve = () => {
@@ -21,7 +20,6 @@ const Reserve = () => {
     return (
         <>
             <UserProfile userData={data} />
-            <IPReservation/>
             <IPReservedTable ipData={data} />
         </>
     );
