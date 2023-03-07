@@ -4,13 +4,23 @@ import { IPTableHeader } from "./IPTableHeader";
 import { IPTableRow } from "./IPTableRow.js";
 import { IPTableFooter } from "./IPTableFooter";
 
+const IPTableRows = (props) => {
+    const {} = props;
 
-function IPReservedTable(data) {
+    return (
+        <IPTableRow></IPTableRow>
+    );
+};
+
+const IPReservedTable = (props) => {
+    const {} = props;
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     return (
         <Row className="mt-4">
             <Col>
                 <IPTableHeader></IPTableHeader>
-                <IPTableRow></IPTableRow>
+                <IPTableRows></IPTableRows>
                 <IPTableFooter></IPTableFooter>
             </Col>
         </Row>

@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 
+export const toggleRemove = () => {
+    
+};
+
 export const IPTableFooter = (props) => {
+    const {} = props;
+    
     return (
         <Row>
             <Col>
