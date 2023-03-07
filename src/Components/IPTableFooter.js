@@ -5,8 +5,22 @@ export const IPTableFooter = (props) => {
     return (
         <Row>
             <Col>
-                <Button className="mt-4" variant="primary" >New IP-address</Button>
-                <Button className="mt-4 float-end" variant="danger">Remove</Button>
+                <Button
+                    id='newIPButton'
+                    variant="primary"
+                    className="mt-4"
+                    title="Fetch a new IP-address to be confirmed for reservation.">
+                    New IP-address
+                </Button>
+                <Button
+                    id='removeIPButton'
+                    variant="danger"
+                    className="mt-4 float-end"
+                    disabled
+                    title="Select an IP address to remove"
+                    aria-label="Select an IP address to remove" >
+                    Remove selected
+                </Button>
             </Col>
         </Row>
     );
