@@ -1,3 +1,4 @@
+import { DEBUG } from "./config";
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import { Login, Logout } from "./Components/Login";
@@ -12,8 +13,10 @@ const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
 
-    console.log("DEBUG( State of the app: isLoggedIn is", isLoggedIn, "and isAdmin is", isAdmin, ")");
-
+    if (DEBUG) {
+        console.log("DEBUG FLAG SET 'TRUE' JUST LETTING YOU KNOW. CHECK CONFIG.JS IF IT SHOULD BE FALSE. BE SURE TO SET API_BASE_URL CORRECTLY");
+        console.log("DEBUG( State of the app: isLoggedIn is", isLoggedIn, "and isAdmin is", isAdmin, ")");
+    }
     return (
         <Router>
             <Navigation isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
