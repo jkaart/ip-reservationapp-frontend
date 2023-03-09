@@ -8,6 +8,7 @@ import Admin from "./Components/Admin";
 import User from "./Components/User";
 import Register from "./Components/Register";
 import { Container } from "react-bootstrap";
+import UserInfo from "./Components/UserInfo";
 
 const App = () => {
     const [login, setLogin] = useState(false);
@@ -24,15 +25,16 @@ const App = () => {
         <Router>
             <Navigation isLoggedIn={login} isAdmin={isAdmin} />
             <Container>
+                {login ? <UserInfo name={name} email={email} group={group}></UserInfo> : ""}
                 <Routes>
                     <Route exact path="/" element={ 
                         login ? 
                         <Reserve
                             login={login}
                             name={name}
-                            email={email}
+                            email={email}   
                             group={group}
-                        /> 
+                        />
                         : 
                         <Login 
                             login={login}
