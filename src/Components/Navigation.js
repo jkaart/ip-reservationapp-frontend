@@ -1,3 +1,4 @@
+import { DEBUG } from "../config";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -13,7 +14,7 @@ function Navigation(props) {
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand as={Link} to="/" href="#home">Esedu IP Reserve</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/" href="#home">Esedu IP Reserve {DEBUG && "#DEBUG"}</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
