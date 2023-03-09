@@ -7,14 +7,9 @@ import Navigation from "./Navigation";
 import PasswordField from "./PasswordField";
 
 export const Login = (props) => {
-    const login = props.isLoggedIn;
-    const setLogin = props.setIsLoggedIn;
-    const admin = props.isAdmin;
-    const setAdmin = props.setIsAdmin;
+    const {login, setLogin, admin, setAdmin, setName, setGroup, email, setEmail} = props;
 
     const navigate = useNavigate();
-
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     let data = {};
 
@@ -24,7 +19,6 @@ export const Login = (props) => {
     const updatePassword = (event) => {
         setPassword(event.target.value);
     };
-    
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -53,6 +47,8 @@ export const Login = (props) => {
         
         if (data.token) {
             setLogin(data.token);
+            setName(data.name);
+            setGroup(data.group);
             navigate("/");
         } else {
             console.log(data.error);

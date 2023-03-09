@@ -10,29 +10,47 @@ import Register from "./Components/Register";
 import { Container } from "react-bootstrap";
 
 const App = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [login, setLogin] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [group, setGroup] = useState('');
 
     if (DEBUG) {
         console.log("DEBUG FLAG SET 'TRUE' JUST LETTING YOU KNOW. CHECK CONFIG.JS IF IT SHOULD BE FALSE. BE SURE TO SET API_BASE_URL CORRECTLY");
-        console.log("DEBUG( State of the app: isLoggedIn is", isLoggedIn, "and isAdmin is", isAdmin, ")");
+        console.log("DEBUG( State of the app: isLoggedIn is", login, "and isAdmin is", isAdmin, ")");
     }
     return (
         <Router>
-            <Navigation isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
+            <Navigation isLoggedIn={login} isAdmin={isAdmin} />
             <Container>
                 <Routes>
                     <Route exact path="/" element={ 
-                        isLoggedIn ? <Reserve /> : <Login 
-                            isLoggedIn={isLoggedIn}
+                        login ? 
+                        <Reserve
+                            login={login}
+                            name={name}
+                            email={email}
+                            group={group}
+                        /> 
+                        : 
+                        <Login 
+                            login={login}
                             isAdmin={isAdmin}
-                            setIsLoggedIn={setIsLoggedIn}
-                            setIsAdmin={setIsAdmin} /> 
+                            setLogin={setLogin}
+                            setIsAdmin={setIsAdmin} 
+                            email={email}
+                            name={name}
+                            group={group}
+                            setName={setName}
+                            setEmail={setEmail}
+                            setGroup={setGroup}
+                        /> 
                     } />
                     <Route path="/admin" element={<Admin />} />
                     <Route path="/user" element={<User/>} />
                     <Route path="/register" element={<Register/>} />
-                    <Route path="/logout" element={<Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>} />
+                    <Route path="/logout" element={<Logout isLoggedIn={login} setIsLoggedIn={setLogin} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>} />
                 </Routes>
             </Container>
         </Router>

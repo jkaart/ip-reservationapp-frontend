@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from "react-bootstrap";
-import UserProfile from './UserInfo';
+import UserInfo from './UserInfo';
 import IPReservedTable from './IPReservedTable';
 
-const Reserve = () => {
-    const [data, setData] = useState(null);
+const Reserve = (props) => {
+    const {login, name, email, group} = props;
+    console.log('reserve:', name, email, group);
 
-    const fetchData = () => {
-        fetch('https://api.example.com/data')
-            .then(response => response.json())
-            .then(data => setData(data))
-            .catch(error => console.error(error));
+    const fetchIPReservations = () => {
+
     };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     return (
         <>
-            <UserProfile userData={data} />
-            <IPReservedTable ipData={data} />
+            <UserInfo props={{name, email, group}} />
+            <IPReservedTable ipData />
         </>
     );
 }

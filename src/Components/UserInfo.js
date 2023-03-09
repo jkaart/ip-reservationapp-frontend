@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from "react";
 import { Row, Col, Card } from "react-bootstrap";
 
-function UserProfile(data) {
-    //const [name, setName] = useState("");
-    //const [email, setEmail] = useState("");
-    //const [group, setGroup] = useState("");
-
+function UserInfo(props) {
+    const {name, email, group} = props.props;
+    
+    console.log(props);
+    console.log("userinfo: ", name, email, group);
     return (
         <Row className="mt-4">
             <Col>
                 <Card>
                     <Card.Body>
-                        <Card.Title>{data.name + "/ test User, logged in"}</Card.Title>
+                        <Card.Title>{"Hello, " + name + "!"}</Card.Title>
                         <Card.Text>
-                            <b>Email:</b> {data.email + "/ test email" + " "}
+                            <b>Email:</b> {email}
                             <br/>
-                            <b>Group:</b> {data.group + "/ test school group"}
+                            <b>Group:</b> {group}
                         </Card.Text>
                     </Card.Body>
                 </Card>
@@ -24,4 +23,4 @@ function UserProfile(data) {
     );
 }
 
-export default UserProfile;
+export default UserInfo;

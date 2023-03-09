@@ -5,11 +5,9 @@ import UserResetPassword from './UserResetPassword';
 import UserRequestRemoval from './UserRequestRemoval';
 
 
-function User(data) {
-    //const [name, setName] = useState("");
-    //const [email, setEmail] = useState("");
-    //const [group, setGroup] = useState("");
-    data = "";
+function User(props) {
+    const {} = props;
+    let data = "";
 
     return (
         <Container>
