@@ -1,3 +1,4 @@
+import { API_BASE_URL, DEBUG } from '../config';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Col, Form, Row } from 'react-bootstrap';
@@ -12,37 +13,49 @@ export const Login = (props) => {
     const setAdmin = props.setIsAdmin;
 
     const navigate = useNavigate();
-    const data = { success: false };
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    let data = {};
+
+    const updateEmail = (event) => {
+        setEmail(event.target.value);
+    };
+    const updatePassword = (event) => {
+        setPassword(event.target.value);
+    };
+    
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        /*
-        const response = await fetch('login', { 
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username, password
-            })
-        });
         
-        const data = await response.json();
-*/
-        //debug
-
-        await new Promise((resolve) => {
-            setTimeout(() => {
-                data.success = true;
-                setLogin(data.success);
-                resolve();
-            }, 1000);
-        });
-
-
-        if (data.success) {
+        if(DEBUG) {
+            await new Promise((resolve) => {
+                setTimeout(() => {
+                    data.token = 'debug_success' ;
+                    setLogin(data.token);
+                    resolve();
+                }, 1000);
+            });
+        } else {
+            const response = await fetch(API_BASE_URL+'login/', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email, password
+                })
+            });
+        
+            data = await response.json();
+        };
+        
+        if (data.token) {
+            setLogin(data.token);
             navigate("/");
         } else {
+            console.log(data.error);
             //TODO: set error alert
         }
 
@@ -56,14 +69,14 @@ export const Login = (props) => {
                     <Form.Label className="text-uppercase fs-2 mt-2">Log in</Form.Label>
                     <Form.Group>
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="user@esedulainen.fi" />
+                        <Form.Control type="email" placeholder="user@esedulainen.fi" onChange={updateEmail}/>
                         <Form.Text className="text-muted">
                             Enter your Esedulainen-email
                         </Form.Text>
                     </Form.Group>
                     <Form.Group className="mt-2">
                         <Form.Label>Password</Form.Label>
-                        <PasswordField id="password" />
+                        <PasswordField id="password" onChangeProp={setPassword}/> {/* */}
                         <Form.Text className="text-muted">
                             Your password is unique to the IP Reservation system
                         </Form.Text>
