@@ -11,7 +11,6 @@ function User(props) {
 
     return (
         <Container>
-            <UserProfile userData={data} />
             <UserResetPassword userData={data}/>
             <UserRequestRemoval userData={data}/>
         </Container>

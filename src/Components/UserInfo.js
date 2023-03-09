@@ -1,10 +1,7 @@
 import { Row, Col, Card } from "react-bootstrap";
 
 function UserInfo(props) {
-    const {name, email, group} = props.props;
-    
-    console.log(props);
-    console.log("userinfo: ", name, email, group);
+    const {name, email, group} = props;
     return (
         <Row className="mt-4">
             <Col>

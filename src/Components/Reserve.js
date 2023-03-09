@@ -13,7 +13,6 @@ const Reserve = (props) => {
 
     return (
         <>
-            <UserInfo props={{name, email, group}} />
             <IPReservedTable ipData />
         </>
     );
