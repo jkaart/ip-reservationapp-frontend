@@ -12,7 +12,7 @@ const IPTableRows = (props) => {
     );
 };
 
-const IPReservedTable = (props) => {
+const IPReservationTable = (props) => {
     const {} = props;
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -27,4 +27,4 @@ const IPReservedTable = (props) => {
     );
 };
 
-export default IPReservedTable;
+export default IPReservationTable;

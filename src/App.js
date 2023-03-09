@@ -2,13 +2,13 @@ import { DEBUG } from "./config";
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import { Login, Logout } from "./Components/Login";
-import Reserve from "./Components/Reserve";
 import Navigation from "./Components/Navigation";
 import Admin from "./Components/Admin";
 import User from "./Components/User";
 import Register from "./Components/Register";
 import { Container } from "react-bootstrap";
 import UserInfo from "./Components/UserInfo";
+import IPReservationTable from "./Components/IPReservation";
 
 const App = () => {
     const [login, setLogin] = useState(false);
@@ -29,7 +29,7 @@ const App = () => {
                 <Routes>
                     <Route exact path="/" element={ 
                         login ? 
-                        <Reserve
+                        <IPReservationTable
                             login={login}
                             name={name}
                             email={email}   
