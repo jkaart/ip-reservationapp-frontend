@@ -17,6 +17,16 @@ function UserResetPassword(data) {
     const [newPass2, setNewPass2] = useState('');
     const [currentPass, setCurrentPass] = useState('');
 
+    const updatePassword1 = (event) => {
+        setNewPass1(event.target.value);
+    };
+    const updatePassword2 = (event) => {
+        setNewPass2(event.target.value);
+    };
+    const updateCurrentPassword = (event) => {
+        setCurrentPass(event.target.value);
+    };
+
     const handleNewPasswordCheck = () => {
         if (newPass1 === newPass2) {
             // Passwords match
@@ -44,10 +54,10 @@ function UserResetPassword(data) {
                     <h3>Reset password</h3>
                     <Form.Group className="mb-3" controlId="formPassword">
                         <FormLabel>Current Password</FormLabel>
-                        <PasswordField className="" id="currentPass" onChangeProp={setCurrentPass}  />
+                        <PasswordField className="" id="currentPass" onChangeProp={updateCurrentPassword}  />
                         <Form.Label className="mt-3">New Password</Form.Label>
-                        <PasswordField className="mb-1" id="newPass1" onChangeProp={setNewPass1} onBlurProp={handleNewPasswordCheck} />
-                        <PasswordField className="" id="newPass2" onChangeProp={setNewPass2} onBlurProp={handleNewPasswordCheck} />
+                        <PasswordField className="mb-1" id="newPass1" onChangeProp={updatePassword1} onBlurProp={handleNewPasswordCheck} />
+                        <PasswordField className="" id="newPass2" onChangeProp={updatePassword2} onBlurProp={handleNewPasswordCheck} />
                         <Form.Text className="text-muted">
                             New password must differ from old.
                         </Form.Text>

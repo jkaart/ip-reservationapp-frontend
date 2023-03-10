@@ -72,7 +72,7 @@ export const Login = (props) => {
                     </Form.Group>
                     <Form.Group className="mt-2">
                         <Form.Label>Password</Form.Label>
-                        <PasswordField id="password" onChangeProp={setPassword}/> {/* */}
+                        <PasswordField id="password" onChangeProp={updatePassword}/> {/* */}
                         <Form.Text className="text-muted">
                             Your password is unique to the IP Reservation system
                         </Form.Text>
