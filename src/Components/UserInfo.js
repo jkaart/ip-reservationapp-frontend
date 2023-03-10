@@ -1,4 +1,5 @@
 import { Row, Col, Card } from "react-bootstrap";
+import { DEBUG } from "../config";
 
 function UserInfo(props) {
     const {name, email, group} = props;
@@ -7,11 +8,11 @@ function UserInfo(props) {
             <Col>
                 <Card>
                     <Card.Body>
-                        <Card.Title>{"Hello, " + name + "!"}</Card.Title>
+                        <Card.Title>{"Hello, " + (DEBUG ? "Debugger" : name) + "!"}</Card.Title>
                         <Card.Text>
-                            <b>Email:</b> {email}
+                            <b>Email:</b> {DEBUG ? "debug@group.com" : email}
                             <br/>
-                            <b>Group:</b> {group}
+                            <b>Group:</b> {DEBUG ? "Debug Group" : group}
                         </Card.Text>
                     </Card.Body>
                 </Card>
