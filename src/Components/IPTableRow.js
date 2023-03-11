@@ -1,29 +1,30 @@
-import React, { useState, useEffect } from "react";
 import { Row, Col, Button } from "react-bootstrap";
-import { FiEdit, FiPlusSquare, FiSquare, FiCheckSquare } from "react-icons/fi";
+import { FiPlusSquare, FiSquare, FiCheckSquare } from "react-icons/fi";
 import { IconContext } from "react-icons";
 import EditButton from "./EditButton";
 
 export const IPTableRow = (props) => {
-    const [check, checked] = useState(false);
-    const handleToggleCheckbox = () => {
-        checked(!check);
+    const {index, rowData, updateTableData, updateRemoveButtonActive } = props;
+
+    const handleToggleCheckbox = (e) => {
+        updateTableData(index, 'checked', !rowData.checked);
+        updateRemoveButtonActive();
     };
     return (
         <IconContext.Provider value={{ size: "30px" }}>
-            <Row className="border rounded m-0 p-2">
+            <Row className="border rounded m-0 p-2" index={index} key={rowData.IP}>
                 <Col sm md='2'>
-                    <span className="align-middle">10.36.64.20</span>
+                    <span className="align-middle">{rowData.IP}</span>
                 </Col>
                 <Col sm md='3'>
-                    <span className="align-middle">28.02.2023 - 7 days</span>
+                    <span className="align-middle">{rowData.endDate}</span>
                     <Button variant="" className="p-0 float-end"> <FiPlusSquare /> </Button>
                 </Col>
                 <Col sm md='6'>
-                    <EditButton />
+                    <EditButton description={rowData.description}/>
                 </Col>
                 <Col sm md='1' className=''>
-                    <Button variant="" className="p-0 float-end" onClick={handleToggleCheckbox}> {check ? <FiCheckSquare /> : <FiSquare />}  </Button>
+                    <Button id={index} variant="" className="p-0 float-end" onClick={handleToggleCheckbox}> {rowData.checked ? <FiCheckSquare /> : <FiSquare />}  </Button>
                 </Col>
             </Row>
         </IconContext.Provider>

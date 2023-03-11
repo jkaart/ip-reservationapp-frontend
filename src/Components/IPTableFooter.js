@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 
-export const toggleRemove = () => {
-    
-};
-
 export const IPTableFooter = (props) => {
-    const {} = props;
-    
+    const { addTableRow, removeButton } = props;
+
     return (
         <Row>
             <Col>
@@ -15,14 +11,15 @@ export const IPTableFooter = (props) => {
                     id='newIPButton'
                     variant="primary"
                     className="mt-4"
-                    title="Fetch a new IP-address to be confirmed for reservation.">
+                    title="Fetch a new IP-address to be confirmed for reservation."
+                    onClick={() => {addTableRow()}}>
                     New IP-address
                 </Button>
                 <Button
                     id='removeIPButton'
                     variant="danger"
                     className="mt-4 float-end"
-                    disabled
+                    disabled={removeButton}
                     title="Select an IP address to remove"
                     aria-label="Select an IP address to remove" >
                     Remove selected
