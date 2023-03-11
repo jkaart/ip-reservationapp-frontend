@@ -7,16 +7,16 @@ import Navigation from "./Navigation";
 import PasswordField from "./PasswordField";
 
 export const Login = (props) => {
-    const {login, setLogin, admin, setAdmin, setName, setGroup, email, setEmail} = props;
+    const { updateLogin, updateAdmin, updateName, updateEmail, updateGroup, email } = props;
 
     const navigate = useNavigate();
     const [password, setPassword] = useState('');
     let data = {};
 
-    const updateEmail = (event) => {
-        setEmail(event.target.value);
+    const handleEmailChange = (event) => {
+        updateEmail(event.target.value);
     };
-    const updatePassword = (event) => {
+    const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
 
@@ -27,7 +27,7 @@ export const Login = (props) => {
             await new Promise((resolve) => {
                 setTimeout(() => {
                     data.token = 'debug_success' ;
-                    setLogin(data.token);
+                    updateLogin(data.token);
                     resolve();
                 }, 1000);
             });
@@ -46,9 +46,9 @@ export const Login = (props) => {
         };
         
         if (data.token) {
-            setLogin(data.token);
-            setName(data.name);
-            setGroup(data.group);
+            updateLogin(data.token);
+            updateName(data.name);
+            updateGroup(data.group);
             navigate("/");
         } else {
             console.log(data.error);
@@ -65,14 +65,14 @@ export const Login = (props) => {
                     <Form.Label className="text-uppercase fs-2 mt-2">Log in</Form.Label>
                     <Form.Group>
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="user@esedulainen.fi" onChange={updateEmail}/>
+                        <Form.Control type="email" placeholder="user@esedulainen.fi" onChange={handleEmailChange}/>
                         <Form.Text className="text-muted">
                             Enter your Esedulainen-email
                         </Form.Text>
                     </Form.Group>
                     <Form.Group className="mt-2">
                         <Form.Label>Password</Form.Label>
-                        <PasswordField id="password" onChangeProp={updatePassword}/> {/* */}
+                        <PasswordField id="password" onChangeProp={handlePasswordChange}/> {/* */}
                         <Form.Text className="text-muted">
                             Your password is unique to the IP Reservation system
                         </Form.Text>

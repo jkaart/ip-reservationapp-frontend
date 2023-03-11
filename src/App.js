@@ -12,18 +12,34 @@ import IPReservationTable from "./Components/IPReservation";
 
 const App = () => {
     const [login, setLogin] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [admin, setAdmin] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [group, setGroup] = useState('');
 
+    const updateLogin = (value) => {
+        setLogin(value);
+    };
+    const updateAdmin = (value) => {
+        setAdmin(value);
+    };
+    const updateName = (value) => {
+        setName(value);
+    };
+    const updateEmail = (value) => {
+        setEmail(value);
+    };
+    const updateGroup = (value) => {
+        setGroup(value);
+    };
+
     if (DEBUG) {
-        console.log("DEBUG FLAG SET 'TRUE' JUST LETTING YOU KNOW. CHECK CONFIG.JS IF IT SHOULD BE FALSE. BE SURE TO SET API_BASE_URL CORRECTLY");
-        console.log("DEBUG( State of the app: isLoggedIn is", login, "and isAdmin is", isAdmin, ")");
+        console.log("DEBUG FLAG SET");
     }
+    
     return (
         <Router>
-            <Navigation isLoggedIn={login} isAdmin={isAdmin} />
+            <Navigation isLoggedIn={login} isAdmin={admin} />
             <Container>
                 {login ? <UserInfo name={name} email={email} group={group}></UserInfo> : ""}
                 <Routes>
@@ -37,22 +53,18 @@ const App = () => {
                         />
                         : 
                         <Login 
-                            login={login}
-                            isAdmin={isAdmin}
-                            setLogin={setLogin}
-                            setIsAdmin={setIsAdmin} 
+                            updateLogin={updateLogin}
+                            updateAdmin={updateAdmin}
+                            updateName={updateName}
+                            updateEmail={updateEmail} 
+                            updateGroup={updateGroup}
                             email={email}
-                            name={name}
-                            group={group}
-                            setName={setName}
-                            setEmail={setEmail}
-                            setGroup={setGroup}
                         /> 
                     } />
                     <Route path="/admin" element={<Admin />} />
                     <Route path="/user" element={<User/>} />
                     <Route path="/register" element={<Register/>} />
-                    <Route path="/logout" element={<Logout isLoggedIn={login} setIsLoggedIn={setLogin} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>} />
+                    <Route path="/logout" element={<Logout isLoggedIn={login} setIsLoggedIn={setLogin} isAdmin={admin} setIsAdmin={updateAdmin}/>} />
                 </Routes>
             </Container>
         </Router>
