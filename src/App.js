@@ -1,7 +1,6 @@
-import { DEBUG } from "./config";
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import { Login, Logout } from "./Components/Login";
+import Login from "./Components/Login";
 import Navigation from "./Components/Navigation";
 import Admin from "./Components/Admin";
 import User from "./Components/User";
@@ -9,62 +8,37 @@ import Register from "./Components/Register";
 import { Container } from "react-bootstrap";
 import UserInfo from "./Components/UserInfo";
 import IPReservationTable from "./Components/IPReservation";
+import jwtDecode from "jwt-decode";
+import { DEBUG } from "./config";
 
 const App = () => {
-    const [login, setLogin] = useState(false);
-    const [admin, setAdmin] = useState(false);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [group, setGroup] = useState('');
+    const [user, setUser] = useState({
+        token: null,
+        name: null,
+        email: null,
+        group: null
+    });
 
-    const updateLogin = (value) => {
-        setLogin(value);
-    };
-    const updateAdmin = (value) => {
-        setAdmin(value);
-    };
-    const updateName = (value) => {
-        setName(value);
-    };
-    const updateEmail = (value) => {
-        setEmail(value);
-    };
-    const updateGroup = (value) => {
-        setGroup(value);
+    const updateUser = (userData) => {
+        setUser( {...user, ...userData} );
     };
 
-    if (DEBUG) {
-        console.log("DEBUG FLAG SET");
-    }
-    
     return (
         <Router>
-            <Navigation isLoggedIn={login} isAdmin={admin} />
+            <Navigation login={user.token && jwtDecode(user.token).role} updateUser={updateUser} />
             <Container>
-                {login ? <UserInfo name={name} email={email} group={group}></UserInfo> : ""}
+                {user.token && <UserInfo name={user.name} email={user.email} group={user.group}></UserInfo>}
                 <Routes>
-                    <Route exact path="/" element={ 
-                        login ? 
-                        <IPReservationTable
-                            login={login}
-                            name={name}
-                            email={email}   
-                            group={group}
-                        />
-                        : 
-                        <Login 
-                            updateLogin={updateLogin}
-                            updateAdmin={updateAdmin}
-                            updateName={updateName}
-                            updateEmail={updateEmail} 
-                            updateGroup={updateGroup}
-                            email={email}
-                        /> 
-                    } />
+                    <Route exact path="/" element={
+                        user.token || DEBUG ?
+                            <IPReservationTable user={user} />
+                            :
+                            <Login user={user} updateUser={updateUser} />
+                        }
+                    />
                     <Route path="/admin" element={<Admin />} />
-                    <Route path="/user" element={<User/>} />
-                    <Route path="/register" element={<Register/>} />
-                    <Route path="/logout" element={<Logout isLoggedIn={login} setIsLoggedIn={setLogin} isAdmin={admin} setIsAdmin={updateAdmin}/>} />
+                    <Route path="/user" element={<User />} />
+                    <Route path="/register" element={<Register />} />
                 </Routes>
             </Container>
         </Router>

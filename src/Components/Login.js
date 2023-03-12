@@ -2,19 +2,17 @@ import { API_BASE_URL, DEBUG } from '../config';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { render } from "@testing-library/react";
-import Navigation from "./Navigation";
 import PasswordField from "./PasswordField";
+import axios from 'axios';
 
-export const Login = (props) => {
-    const { updateLogin, updateAdmin, updateName, updateEmail, updateGroup, email } = props;
-
+const Login = (props) => {
+    const { user, updateUser } = props;
     const navigate = useNavigate();
-    const [password, setPassword] = useState('');
-    let data = {};
+
+    const [password, setPassword] = useState();
 
     const handleEmailChange = (event) => {
-        updateEmail(event.target.value);
+        updateUser({ ...user, email: event.target.value });
     };
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
@@ -22,40 +20,34 @@ export const Login = (props) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
-        if(DEBUG) {
+
+        if (!DEBUG) {
+            try {
+                const response = await axios
+                    .post(API_BASE_URL + 'login/', {
+                        email: user.email,
+                        password: password,
+                    }, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+                updateUser(response.data);
+                navigate("/");
+            } catch (error) {
+                console.log(error.response);
+                //TODO: set error alert
+            }
+        } 
+        else {
             await new Promise((resolve) => {
                 setTimeout(() => {
-                    data.token = 'debug_success' ;
-                    updateLogin(data.token);
+                    updateUser({ ...user, token: 'debug_success'});
                     resolve();
                 }, 1000);
             });
-        } else {
-            const response = await fetch(API_BASE_URL+'login/', { 
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email, password
-                })
-            });
-        
-            data = await response.json();
         };
-        
-        if (data.token) {
-            updateLogin(data.token);
-            updateName(data.name);
-            updateGroup(data.group);
-            navigate("/");
-        } else {
-            console.log(data.error);
-            //TODO: set error alert
-        }
-
-        //navigate("/reserve");
     };
 
     return (
@@ -65,14 +57,14 @@ export const Login = (props) => {
                     <Form.Label className="text-uppercase fs-2 mt-2">Log in</Form.Label>
                     <Form.Group>
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="user@esedulainen.fi" onChange={handleEmailChange}/>
+                        <Form.Control type="email" placeholder="user@esedulainen.fi" onChange={handleEmailChange} />
                         <Form.Text className="text-muted">
                             Enter your Esedulainen-email
                         </Form.Text>
                     </Form.Group>
                     <Form.Group className="mt-2">
                         <Form.Label>Password</Form.Label>
-                        <PasswordField id="password" onChangeProp={handlePasswordChange}/> {/* */}
+                        <PasswordField id="password" onChangeProp={handlePasswordChange} /> {/* */}
                         <Form.Text className="text-muted">
                             Your password is unique to the IP Reservation system
                         </Form.Text>
@@ -86,15 +78,4 @@ export const Login = (props) => {
     );
 };
 
-export const Logout = (props) => {
-    const navigate = useNavigate();
-
-    props.setIsLoggedIn(false);
-    props.setIsAdmin(false);
-
-    navigate("/");
-
-    console.log(props.isLoggedIn);
-    console.log(props.isAdmin);
-
-};
+export default Login;

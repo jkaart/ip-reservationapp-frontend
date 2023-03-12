@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import PasswordField from './PasswordField';
+import axios from 'axios';
 
 const Register = () => {
     const [newEmail, setNewEmail] = useState('');
@@ -10,23 +11,42 @@ const Register = () => {
     const [newGroup, setNewGroup] = useState('');
     const navigate = useNavigate();
 
-    let data = {};
-
-    const updateNewEmail = (event) => {
+    const handleNewEmail = (event) => {
         setNewEmail(event.target.value);
     };
-    const updateNewPassword = (event) => {
+    const handleNewPassword = (event) => {
         setNewPassword(event.target.value);
     };
-    const updateNewGroup = (event) => {
+    const handleNewGroup = (event) => {
         setNewGroup(event.target.value);
     };
-
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (DEBUG) {
+        if (!DEBUG) {
+            try {
+                const response = await axios
+                    .post(API_BASE_URL + 'users/', {
+                        name: "     ",
+                        email: newEmail,
+                        password: newPassword,
+                        group: newGroup,
+                        role: 'user' //to be removed
+                    }, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+
+                navigate("/");
+            } catch (error) {
+                console.log(error.response);
+                //TODO: set error alert
+            }
+            
+        } else {
             /*await new Promise((resolve) => {
                 setTimeout(() => {
                     data.token = 'debug_success';
@@ -34,52 +54,31 @@ const Register = () => {
                 }, 1000);
             });*/
             console.log("DEBUG: register disabled and does nothing");
-        } else {
-            const response = await fetch(API_BASE_URL + 'users/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: 'testi nimi', email: newEmail, password: newPassword, group: newGroup, role: 'user'
-                })
-            });
-
-            data = await response.json();
         };
-
-        if (data.id) {
-            navigate("/");
-        } else {
-            console.log(data.error);
-            //TODO: set error alert
-        }
-
-        //navigate("/reserve");
     };
 
     return (
-        <Row >
+        <Row>
             <Col md="5">
                 <Form>
                     <Form.Label className="text-uppercase fs-2 mt-2">Register</Form.Label>
                     <Form.Group>
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" onChange={updateNewEmail} placeholder="user@esedulainen.fi" />
+                        <Form.Control type="email" onChange={handleNewEmail} placeholder="user@esedulainen.fi" />
                         <Form.Text className="text-muted">
                             Enter your Esedulainen-email
                         </Form.Text>
                     </Form.Group>
                     <Form.Group className="mt-2">
                         <Form.Label>Password</Form.Label>
-                        <PasswordField id="pass" onChangeProp={updateNewPassword} />
+                        <PasswordField id="pass" onChangeProp={handleNewPassword} />
                         <Form.Text className="text-muted">
                             Your password is unique to the IP Reservation system
                         </Form.Text>
                     </Form.Group>
                     <Form.Group className="mt-2">
                         <Form.Label>Group</Form.Label>
-                        <Form.Control type="text" placeholder="Group 1" onChange={updateNewGroup} />
+                        <Form.Control type="text" placeholder="Group 1" onChange={handleNewGroup} />
                     </Form.Group>
                     <Button variant="primary" type="submit" className="mt-3" onClick={handleSubmit}>
                         Register

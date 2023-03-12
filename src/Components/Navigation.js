@@ -8,8 +8,18 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function Navigation(props) {
-    
-    const { isLoggedIn, isAdmin } = props;
+    let login = props.login;
+    const {updateUser} = props;
+    if(login === 'debug_success' && DEBUG) login = 'admin';
+
+    const handleLogout = () => {
+        updateUser({
+            token: null,
+            name: null,
+            email: null,
+            group: null
+        });
+    };
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -18,15 +28,15 @@ function Navigation(props) {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        { isAdmin && <Nav.Link as={Link} to="/admin">Admin Panel</Nav.Link> }
+                        { login === 'admin' && <Nav.Link as={Link} to="/admin">Admin Panel</Nav.Link> }
                     </Nav>
                     <Nav>
                         <NavDropdown title="User" id="collapsible-nav-dropdown">
-                            { !isLoggedIn && <NavDropdown.Item as={Link} to="/">Log In</NavDropdown.Item>}
-                            { isLoggedIn && <NavDropdown.Item as={Link} to="/user">User Info</NavDropdown.Item> }
+                            { !login && <NavDropdown.Item as={Link} to="/">Log In</NavDropdown.Item>}
+                            { login && <NavDropdown.Item as={Link} to="/user">User Info</NavDropdown.Item> }
                             <NavDropdown.Divider />
-                            { !isLoggedIn && <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>}
-                            { isLoggedIn && <NavDropdown.Item as={Link} to="/logout">Log Out</NavDropdown.Item> }
+                            { !login && <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>}
+                            { login && <NavDropdown.Item onClick={handleLogout}>Log Out</NavDropdown.Item> }
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
