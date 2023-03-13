@@ -28,11 +28,12 @@ function Navigation(props) {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        { login === 'admin' && <Nav.Link as={Link} to="/admin">Admin Panel</Nav.Link> }
+                        { DEBUG || login === 'admin' && <Nav.Link as={Link} to="/admin">Admin Panel</Nav.Link> }
                     </Nav>
                     <Nav>
-                        <NavDropdown title="User" id="collapsible-nav-dropdown">
+                        <NavDropdown title="User" id="collapsible-nav-dropdown" align="end">
                             { !login && <NavDropdown.Item as={Link} to="/">Log In</NavDropdown.Item>}
+                            { login && <NavDropdown.Item as={Link} to="/">IP Reservations</NavDropdown.Item> }
                             { login && <NavDropdown.Item as={Link} to="/user">User Info</NavDropdown.Item> }
                             <NavDropdown.Divider />
                             { !login && <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>}
