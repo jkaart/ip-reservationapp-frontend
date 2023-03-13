@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 
 export const IPTableFooter = (props) => {
-    const { addTableRow, removeButton } = props;
+    const { addTableRow, removeButtonDisabled, removeTableRow } = props;
 
     return (
         <Row>
@@ -19,9 +19,10 @@ export const IPTableFooter = (props) => {
                     id='removeIPButton'
                     variant="danger"
                     className="mt-4 float-end"
-                    disabled={removeButton}
+                    disabled={removeButtonDisabled}
                     title="Select an IP address to remove"
-                    aria-label="Select an IP address to remove" >
+                    aria-label="Select an IP address to remove"
+                    onClick={removeTableRow}>
                     Remove selected
                 </Button>
             </Col>

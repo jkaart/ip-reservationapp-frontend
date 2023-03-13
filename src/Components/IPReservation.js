@@ -3,30 +3,73 @@ import { Row, Col } from "react-bootstrap";
 import { IPTableHeader } from "./IPTableHeader";
 import { IPTableRow } from "./IPTableRow.js";
 import { IPTableFooter } from "./IPTableFooter";
-import { DEBUG } from "../config";
+import { API_BASE_URL, DEBUG } from "../config";
+import axios from "axios";
 
 const IPTableRows = (props) => {
-    const { tableData, updateTableData, updateRemoveButtonActive } = props;
+    const { tableData, updateTableData, updateRemoveButtonActive, updateRowDescription } = props;
 
-    if (DEBUG) {
-        return tableData.map((rowData, index) => {
-            return <IPTableRow
-                key={rowData.IP}
-                index={index}
-                rowData={rowData}
-                updateTableData={updateTableData}
-                updateRemoveButtonActive={updateRemoveButtonActive}
-            />;
-        });
-    } else {
-        return ""; //API
-    }
+    console.log(tableData);
+
+    return tableData.map((rowData, index) => {
+        return <IPTableRow
+            key={rowData.IP}
+            index={index}
+            rowData={rowData}
+            updateTableData={updateTableData}
+            updateRemoveButtonActive={updateRemoveButtonActive}
+            updateRowDescription={updateRowDescription}
+        />;
+    });
 };
 
+const IPTablePopulate = async (token) => {
+    console.log(token);
+    try {
+        const response = await axios
+            .get(API_BASE_URL + 'users/user', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            }
+            );
+
+        return response.data.ips;
+    } catch (error) {
+        console.log(error.response);
+        //TODO: set error alert
+    }
+}
+
 const IPReservationTable = (props) => {
-    const { } = props;
+    const { user } = props;
     const [tableData, setTableData] = useState([]);
-    const [removeButtonActive, setRemoveButtonActive] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const IPTablePromise = IPTablePopulate(user.token);
+
+        IPTablePromise.then((data) => {
+            console.log(data);
+
+            const formattedData = data.map(item => ({
+                IP: item.ip,
+                endDate: item.expirationDate,
+                description: item.desc,
+                checked: false
+            }));
+            console.log(formattedData);
+
+            setTableData(formattedData);
+            setIsLoading(false);
+        }).catch((error) => {
+            console.log("i'm dumb");
+            setIsLoading(false);
+        });
+    }, []);
+
+    const [removeButtonDisabled, setRemoveButtonDisabled] = useState(true);
 
     const updateTableData = (index, field, value) => {
         const updatedData = [...tableData];
@@ -36,8 +79,12 @@ const IPReservationTable = (props) => {
 
     const updateRemoveButtonActive = () => {
         const isActive = tableData.some((rowData) => rowData.checked);
-        setRemoveButtonActive(!isActive);
+        setRemoveButtonDisabled(!isActive);
     };
+
+    const updateRowDescription = (description) => {
+        setTableData([...tableData], { description: description });
+    }
 
     useEffect(() => {
         updateRemoveButtonActive();
@@ -45,21 +92,28 @@ const IPReservationTable = (props) => {
 
     const addTableRow = () => {
         if (DEBUG) {
-            const mfr = () => { return Math.floor(Math.random() * 256); };
-            const ip = "10.36." + mfr() + "." + mfr();
+            const mfr = (min = 0, max = 255) => { return Math.floor(Math.random() * (max - min + 1)) + min; };
+            const ip = "10.36." + mfr(1, 3) + "." + mfr();
             //const now = new Date();
             const nextWeek = new Date(new Date().getTime() + 604800000);
             const date = nextWeek.getDate() + "." + nextWeek.getMonth() + "." + nextWeek.getFullYear();
 
-            setTableData([...tableData, { 
-                IP: ip, 
-                endDate: date, 
-                description: "Debug description for " + ip, 
-                checked: false 
+            setTableData([...tableData, {
+                IP: ip,
+                endDate: date,
+                description: "Debug description for " + ip,
+                checked: false
             }]);
         } else {
-            
+
         }
+    };
+    const removeTableRow = () => {
+        setTableData(tableData.filter(row => !row.checked));
+    };
+    
+    if (isLoading) {
+        return <p>Loading...</p>;
     }
 
     return (
@@ -69,11 +123,14 @@ const IPReservationTable = (props) => {
                 <IPTableRows
                     tableData={tableData}
                     updateTableData={updateTableData}
-                    updateRemoveButtonActive={updateRemoveButtonActive} >
+                    updateRemoveButtonActive={updateRemoveButtonActive}
+                    updateRowDescription={updateRowDescription}
+                >
                 </IPTableRows>
                 <IPTableFooter
                     addTableRow={addTableRow}
-                    removeButton={removeButtonActive}>
+                    removeButtonDisabled={removeButtonDisabled}
+                    removeTableRow={removeTableRow}>
                 </IPTableFooter>
             </Col>
         </Row>
