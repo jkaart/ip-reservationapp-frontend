@@ -102,7 +102,7 @@ const IPReservationTable = (props) => {
 
     useEffect(() => {
         updateRemoveButtonActive();
-    }, [tableData]);
+    });
 
     const addTableRow = () => {
         if (DEBUG) {
@@ -127,10 +127,9 @@ const IPReservationTable = (props) => {
                     description: item.desc,
                     checked: false
                 }));
-                console.log(newTableRow[1]);
-                setTableData([...tableData], newTableRow[1]);
+                setTableData([...tableData, newTableRow[1]]);
             }).catch((error) => {
-
+                console.log(error);
             });
         }
     };
