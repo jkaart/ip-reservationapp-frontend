@@ -21,20 +21,20 @@ function EditButton(props) {
     };
 
     const handleInputChange = (event) => {
-        //setText({text:event.target.value, oldText:text.oldText});
-        setText((prevState) => ({
+        setText({text:event.target.value, oldText:text.oldText});
+        /*setText((prevState) => ({
             ...prevState,
             text: event.target.value,
-          }));
+          })); */
     };
 
     const handleInputBlur = () => {
         setEditing(false);
-        //setText({text: text.oldText, oldText: text.oldText});
-        setText((prevState) => ({
+        setText({text: text.oldText, oldText: text.oldText});
+        /*setText((prevState) => ({
             ...prevState,
             text: prevState.oldText,
-          }));
+          })); */
     };
 
     return (
