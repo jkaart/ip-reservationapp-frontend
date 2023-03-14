@@ -9,8 +9,6 @@ import axios from "axios";
 const IPTableRows = (props) => {
     const { tableData, updateTableData, updateRemoveButtonActive, updateRowDescription } = props;
 
-    console.log(tableData);
-
     return tableData.map((rowData, index) => {
         return <IPTableRow
             key={rowData.IP}
@@ -23,6 +21,25 @@ const IPTableRows = (props) => {
     });
 };
 
+const getNewIP = async (token) => {
+    try {
+        return await axios
+            .post(API_BASE_URL + 'ips/next-ip', {
+                desc:'aaaaa',
+                networkId:'640e21ac00544bcae339d40e'
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            }
+        );
+    } catch (error) {
+        console.log(error.response);
+        //TODO: set error alert
+    }
+};
+
 const IPTablePopulate = async (token) => {
     console.log(token);
     try {
@@ -33,7 +50,7 @@ const IPTablePopulate = async (token) => {
                     'Authorization': 'Bearer ' + token
                 }
             }
-            );
+        );
 
         return response.data.ips;
     } catch (error) {
@@ -51,7 +68,6 @@ const IPReservationTable = (props) => {
         const IPTablePromise = IPTablePopulate(user.token);
 
         IPTablePromise.then((data) => {
-            console.log(data);
 
             const formattedData = data.map(item => ({
                 IP: item.ip,
@@ -59,15 +75,13 @@ const IPReservationTable = (props) => {
                 description: item.desc,
                 checked: false
             }));
-            console.log(formattedData);
 
             setTableData(formattedData);
             setIsLoading(false);
         }).catch((error) => {
-            console.log("i'm dumb");
             setIsLoading(false);
         });
-    }, []);
+    }, [user.token]);
 
     const [removeButtonDisabled, setRemoveButtonDisabled] = useState(true);
 
@@ -105,13 +119,25 @@ const IPReservationTable = (props) => {
                 checked: false
             }]);
         } else {
+            const newIPPromise = getNewIP(user.token);
+            newIPPromise.then((response) => {
+                const newTableRow = Object.values(response.data).map(item => ({
+                    IP: item.ip,
+                    endDate: item.expirationDate,
+                    description: item.desc,
+                    checked: false
+                }));
+                console.log(newTableRow[1]);
+                setTableData([...tableData], newTableRow[1]);
+            }).catch((error) => {
 
+            });
         }
     };
     const removeTableRow = () => {
         setTableData(tableData.filter(row => !row.checked));
     };
-    
+
     if (isLoading) {
         return <p>Loading...</p>;
     }
