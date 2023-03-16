@@ -8,7 +8,7 @@ const IPTableHeader = () => {
                 IP
             </Col>
             <Col className="d-md-block d-sm-none d-none" md='3'>
-                Reservation ends
+                Expires
             </Col>
             <Col className="d-md-block d-sm-none d-none" md='6'>
                 Description

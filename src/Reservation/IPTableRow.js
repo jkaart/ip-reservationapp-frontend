@@ -13,20 +13,20 @@ export const IPTableRow = (props) => {
     return (
         <IconContext.Provider value={{ size: "30px" }}>
             <Row className="border rounded m-0 p-2" index={index} key={rowData.IP}>
-                <Col sm md='2'>
+                <Col sm='3' md='2'>
                     <Button variant="light" className="w-100 p-2" title="Copy To Clipboard" onClick={(e) => {navigator.clipboard.writeText(e.target.textContent)}}>
                         {rowData.IP}
                     </Button>
                 </Col>
-                <Col sm md='3'>
+                <Col sm='3'>
                     <span className="align-middle pt-2">
                         {rowData.endDate}
                     </span>
                 </Col>
-                <Col sm md='6'>
+                <Col sm='5' md='6'>
                     <Description description={rowData.description} updateTableData={updateTableData} index={index} />
                 </Col>
-                <Col sm md='1' className=''>
+                <Col sm='1' className=''>
                     <Button id={index} variant="" className="p-1 float-end" onClick={handleToggleCheckbox}>
                         {rowData.checked ? <FiCheckSquare /> : <FiSquare />}
                     </Button>
