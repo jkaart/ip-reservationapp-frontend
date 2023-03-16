@@ -32,10 +32,13 @@ function Description(props) {
         setText(event.target.value);
     };
 
-    const handleInputBlur = () => {
-        setEditing(false);
-        // Reset the current text to match the old text
-        setText(oldText);
+    const handleKeyUp = (e) => {
+        // Reset the current text to match the old text on Escape
+        if (e.code === "Escape")
+        {
+            setEditing(true);
+            setText(oldText);
+        }
     };
 
     useEffect(() => {
@@ -50,9 +53,9 @@ function Description(props) {
     return (
         <>
             <div className="d-flex">
-                <FormControl type="text" value={text} placeholder="Description of usage" onChange={handleInputChange} onBlur={handleInputBlur} disabled={editing} />
+                <FormControl type="text" className={editing?"form-control-plaintext":""} value={text} placeholder="Description of usage" onChange={handleInputChange} onKeyUp={handleKeyUp} readOnly={editing}  />
                 &nbsp;&nbsp;
-                <Button variant="light" className={editing?"p-1":"d-none"} onClick={handleEditClick} style={{borderColor: "rgb(206, 212, 218)"}}> <FiEdit /> </Button>
+                <Button variant="none" className={editing?"p-1":"d-none"} onClick={handleEditClick}> <FiEdit /> </Button>
                 <Button variant="success" className={editing?"d-none":"p-1"} onClick={handleConfirmClick}> <FiCheck /> </Button>
                 <Button variant="danger" className={editing?"d-none":"p-1"} onClick={handleCancelClick}> <FiX /> </Button>
             </div>

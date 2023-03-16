@@ -37,7 +37,6 @@ const IPReservationTable = (props) => {
         const updatedData = [...tableData];
         updatedData[index][field] = value;
         setTableData(updatedData);
-        console.log(index, field, value, updatedData);
     };
 
     const updateRemoveButtonActive = () => {

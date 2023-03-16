@@ -5,7 +5,7 @@ export const getNewIP = async (token) => {
     try {
         return await axios
             .post(API_BASE_URL + 'ips/next-ip', {
-                desc:'aaaaa',
+                desc:'User description',
                 networkId:'640e21ac00544bcae339d40e'
             }, {
                 headers: {
