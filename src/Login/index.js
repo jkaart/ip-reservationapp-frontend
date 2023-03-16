@@ -34,6 +34,7 @@ const Login = (props) => {
                     }
                 );
                 updateUser(response.data);
+                localStorage.setItem('user', JSON.stringify(response.data));
                 navigate("/");
             } catch (error) {
                 console.log(error.response);

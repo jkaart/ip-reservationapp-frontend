@@ -19,6 +19,8 @@ function Navigation(props) {
             email: null,
             group: null
         });
+        
+        localStorage.removeItem('user');
     };
 
     return (

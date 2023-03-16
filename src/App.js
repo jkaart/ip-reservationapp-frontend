@@ -14,7 +14,9 @@ import Admin from "./Admin";
 import User from "./User/";
 
 const App = () => {
-    const [user, setUser] = useState({
+    const storedUser = localStorage.getItem('user');
+
+    const [user, setUser] = useState(storedUser ? JSON.parse(storedUser) : {
         token: null,
         name: null,
         email: null,
