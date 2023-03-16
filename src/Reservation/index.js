@@ -16,14 +16,12 @@ const IPReservationTable = (props) => {
         const IPTablePromise = IPTablePopulate(user.token);
 
         IPTablePromise.then((data) => {
-
             const formattedData = data.map(item => ({
                 IP: item.ip,
-                endDate: item.expirationDate,
+                endDate: expirationTime(item.expirationDate),
                 description: item.desc,
                 checked: false
             }));
-
             setTableData(formattedData);
             setIsLoading(false);
         }).catch((error) => {
@@ -68,7 +66,7 @@ const IPReservationTable = (props) => {
             newIPPromise.then((response) => {
                 const newTableRow = Object.values(response.data).map(item => ({
                     IP: item.ip,
-                    endDate: item.expirationDate,
+                    endDate: expirationTime(item.expirationDate),
                     description: item.desc,
                     checked: true
                 }));
@@ -108,3 +106,22 @@ const IPReservationTable = (props) => {
 };
 
 export default IPReservationTable;
+
+function expirationTime(expirationDate)
+{
+    const exp = new Date(expirationDate).getTime();
+    const now = new Date().getTime();
+
+    const timeDiff = exp - now; 
+
+    const remainingDays = Math.round(timeDiff / (1000 * 60 * 60 * 24));
+    if (remainingDays > 0) 
+        return remainingDays + " days";
+
+    const remainingHours = Math.round((timeDiff / (1000 * 60 * 60)) % 24);
+    if (remainingHours > 0) 
+        return remainingHours + " hours";
+
+    const remainingMinutes = Math.round((timeDiff / (1000 * 60)) % 60);
+        return remainingMinutes < 1 ? "NOW" : remainingMinutes + " minutes";
+}
