@@ -2,7 +2,7 @@ import { API_BASE_URL, DEBUG } from '../config';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import PasswordField from './PasswordField';
+import PasswordField from '../Components/PasswordField';
 import axios from 'axios';
 
 const Register = () => {

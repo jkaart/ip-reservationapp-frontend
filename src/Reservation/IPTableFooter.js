@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 
-export const IPTableFooter = (props) => {
+const IPTableFooter = (props) => {
     const { addTableRow, removeButtonDisabled, removeTableRow } = props;
 
     return (
@@ -14,6 +13,17 @@ export const IPTableFooter = (props) => {
                     title="Fetch a new IP-address to be confirmed for reservation."
                     onClick={() => {addTableRow()}}>
                     New IP-address
+                </Button>
+                &nbsp;
+                <Button
+                    id='renewIPButton'
+                    variant="secondary"
+                    className="mt-4"
+                    title="Renew your IP reservation (add a week of reservation time)."
+                    onClick={() => {}}
+                    disabled={removeButtonDisabled}>
+                        
+                    Renew IP-address
                 </Button>
                 <Button
                     id='removeIPButton'
@@ -29,3 +39,5 @@ export const IPTableFooter = (props) => {
         </Row>
     );
 }
+
+export default IPTableFooter;

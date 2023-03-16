@@ -1,7 +1,6 @@
 import React from 'react';
-import { Row, Col, Card, Container, Form, Button, FormLabel } from "react-bootstrap";
-import UserProfile from './UserInfo';
-import PasswordField from './PasswordField';
+import { Row, Col, Form, Button, FormLabel } from "react-bootstrap";
+import PasswordField from '../Components/PasswordField';
 import { useState } from 'react';
 
 

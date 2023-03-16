@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import Login from "./Components/Login";
-import Navigation from "./Components/Navigation";
-import Admin from "./Components/Admin";
-import User from "./Components/User";
-import Register from "./Components/Register";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import UserInfo from "./Components/UserInfo";
-import IPReservationTable from "./Components/IPReservation";
 import jwtDecode from "jwt-decode";
 import { DEBUG } from "./config";
+
+import Navigation from "./Components/Navigation";
+import UserInfo from "./Components/UserInfo";
+
+import Register from "./Register";
+import Login from "./Login";
+import IPReservationTable from "./Reservation";
+import Admin from "./Admin";
+import User from "./User/";
 
 const App = () => {
     const [user, setUser] = useState({

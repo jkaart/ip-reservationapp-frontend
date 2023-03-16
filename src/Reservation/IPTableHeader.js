@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 
-export const IPTableHeader = () => {
+const IPTableHeader = () => {
     return (
         <Row className="bg-light fw-bold m-0 p-2 border rounded d-md-flex d-sm-none d-none">
             <Col className="d-md-block d-sm-none d-none" md='2'>
@@ -19,3 +19,5 @@ export const IPTableHeader = () => {
         </Row>
     );
 }
+
+export default IPTableHeader;
