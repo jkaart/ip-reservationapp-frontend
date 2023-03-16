@@ -14,7 +14,7 @@ export const IPTableRow = (props) => {
         <IconContext.Provider value={{ size: "30px" }}>
             <Row className="border rounded m-0 p-2" index={index} key={rowData.IP}>
                 <Col sm md='2'>
-                    <Button variant="light" className="w-100 p-2" title="Copy To Clipboard">
+                    <Button variant="light" className="w-100 p-2" title="Copy To Clipboard" onClick={(e) => {navigator.clipboard.writeText(e.target.textContent)}}>
                         {rowData.IP}
                     </Button>
                 </Col>
