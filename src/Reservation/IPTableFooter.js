@@ -1,40 +1,12 @@
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 const IPTableFooter = (props) => {
-    const { addTableRow, removeButtonDisabled, removeTableRow } = props;
-
-    return (
-        <Row>
+    const { tableDataLength } = props;
+    
+    return ( tableDataLength < 1 && 
+        <Row className="m-0 p-2 border rounded">
             <Col>
-                <Button
-                    id='newIPButton'
-                    variant="primary"
-                    className="mt-4"
-                    title="Fetch a new IP-address to be confirmed for reservation."
-                    onClick={() => {addTableRow()}}>
-                    New IP-address
-                </Button>
-                &nbsp;
-                <Button
-                    id='renewIPButton'
-                    variant="secondary"
-                    className="mt-4"
-                    title="Renew your IP reservation (add a week of reservation time)."
-                    onClick={() => {}}
-                    disabled={removeButtonDisabled}>
-                        
-                    Renew IP-address
-                </Button>
-                <Button
-                    id='removeIPButton'
-                    variant="danger"
-                    className="mt-4 float-end"
-                    disabled={removeButtonDisabled}
-                    title="Select an IP address to remove"
-                    aria-label="Select an IP address to remove"
-                    onClick={removeTableRow}>
-                    Remove selected
-                </Button>
+                <p className="p-1">Begin by adding new IP-addresses and confirming them</p>
             </Col>
         </Row>
     );

@@ -5,12 +5,15 @@ import { Row, Col } from "react-bootstrap";
 import IPTableHeader from "./IPTableHeader";
 import IPTableRows from "./IPTableRows";
 import IPTableFooter from "./IPTableFooter";
-import { getNewIP, IPTablePopulate } from "./API";
+import { getNewIP, IPTablePopulate, removeIP, renewIP } from "./API";
+import { showInfo, showSuccess } from "../Components/AlertManager";
+import CommandPanel from "./CommandPanel";
 
 const IPReservationTable = (props) => {
     const { user } = props;
     const [tableData, setTableData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [buttonsDisabled, setButtonsDisabled] = useState(true);
 
     useEffect(() => {
         const IPTablePromise = IPTablePopulate(user.token);
@@ -18,9 +21,10 @@ const IPReservationTable = (props) => {
         IPTablePromise.then((data) => {
             const formattedData = data.map(item => ({
                 IP: item.ip,
-                endDate: expirationTime(item.expirationDate),
+                endDate: item.expirationDate,
                 description: item.desc,
-                checked: false
+                checked: false,
+                id: item.id
             }));
             setTableData(formattedData);
             setIsLoading(false);
@@ -29,7 +33,6 @@ const IPReservationTable = (props) => {
         });
     }, [user.token]);
 
-    const [removeButtonDisabled, setRemoveButtonDisabled] = useState(true);
 
     const updateTableData = (index, field, value) => {
         const updatedData = [...tableData];
@@ -37,13 +40,13 @@ const IPReservationTable = (props) => {
         setTableData(updatedData);
     };
 
-    const updateRemoveButtonActive = () => {
+    const updateButtonsDisabled = () => {
         const isActive = tableData.some((rowData) => rowData.checked);
-        setRemoveButtonDisabled(!isActive);
+        setButtonsDisabled(!isActive);
     };
 
     useEffect(() => {
-        updateRemoveButtonActive();
+        updateButtonsDisabled();
     });
 
     const addTableRow = () => {
@@ -66,62 +69,71 @@ const IPReservationTable = (props) => {
             newIPPromise.then((response) => {
                 const newTableRow = Object.values(response.data).map(item => ({
                     IP: item.ip,
-                    endDate: expirationTime(item.expirationDate),
+                    endDate: item.expirationDate,
                     description: item.desc,
-                    checked: true
+                    checked: true,
+                    id: item.id
                 }));
                 setTableData([...tableData, newTableRow[1]]);
+                showSuccess(newTableRow[1].IP + " added! Confirm with 'Renew selected'", { toastID: "newIPSuccess" })
             }).catch((error) => {
                 console.log(error);
             });
         }
     };
     const removeTableRow = () => {
-        const filteredTables = tableData.filter(row => !row.checked);
-        setTableData(filteredTables);
+        const filteredTables = tableData.filter(row => row.checked);
+
+        filteredTables.forEach((item) => {
+            removeIP(user.token, item.id);
+        });
+        setTableData(tableData.filter(row => !row.checked));
     };
+
+    const renewTableRow = () => {
+        const days = 30;
+
+        tableData.forEach((item, index) => {
+            renewIP(user.token, item.id, item.description, days);
+            const newDate = new Date(Date.now() + days * 86400 * 1000).toISOString();
+            console.log(item);
+            console.log(newDate);
+            updateTableData(index, 'endDate', newDate);
+            updateTableData(index, 'checked', false);
+        });
+    }
 
     if (isLoading) {
         return <p>Loading...</p>;
     }
 
     return (
-        <Row className="mt-4">
-            <Col>
-                <IPTableHeader></IPTableHeader>
-                <IPTableRows
-                    tableData={tableData}
-                    updateTableData={updateTableData}
-                    updateRemoveButtonActive={updateRemoveButtonActive}
-                >
-                </IPTableRows>
-                <IPTableFooter
-                    addTableRow={addTableRow}
-                    removeButtonDisabled={removeButtonDisabled}
-                    removeTableRow={removeTableRow}>
-                </IPTableFooter>
-            </Col>
-        </Row>
+        <>
+            <Row>
+                <Col>
+                    <CommandPanel
+                        addTableRow={addTableRow}
+                        buttonsDisabled={buttonsDisabled}
+                        removeTableRow={removeTableRow} 
+                        renewTableRow={renewTableRow}
+                    />
+                </Col>
+            </Row>
+            <Row className="mt-4">
+                <Col>
+                    <IPTableHeader></IPTableHeader>
+                    <IPTableRows
+                        tableData={tableData}
+                        updateTableData={updateTableData}
+                        updateButtonsDisabled={updateButtonsDisabled}
+                    >
+                    </IPTableRows>
+                    <IPTableFooter tableDataLength={tableData.length}>
+                    </IPTableFooter>
+                </Col>
+            </Row>
+        </>
     );
 };
 
 export default IPReservationTable;
-
-function expirationTime(expirationDate)
-{
-    const exp = new Date(expirationDate).getTime();
-    const now = new Date().getTime();
-
-    const timeDiff = exp - now; 
-
-    const remainingDays = Math.round(timeDiff / (1000 * 60 * 60 * 24));
-    if (remainingDays > 0) 
-        return remainingDays + " days";
-
-    const remainingHours = Math.round((timeDiff / (1000 * 60 * 60)) % 24);
-    if (remainingHours > 0) 
-        return remainingHours + " hours";
-
-    const remainingMinutes = Math.round((timeDiff / (1000 * 60)) % 60);
-        return remainingMinutes < 1 ? "NOW" : remainingMinutes + " minutes";
-}

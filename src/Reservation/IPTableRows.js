@@ -1,7 +1,7 @@
 import { IPTableRow } from "./IPTableRow";
 
 const IPTableRows = (props) => {
-    const { tableData, updateTableData, updateRemoveButtonActive } = props;
+    const { tableData, updateTableData, updateButtonsDisabled } = props;
 
     return tableData.map((rowData, index) => {
         return <IPTableRow
@@ -9,7 +9,7 @@ const IPTableRows = (props) => {
             index={index}
             rowData={rowData}
             updateTableData={updateTableData}
-            updateRemoveButtonActive={updateRemoveButtonActive}
+            updateButtonsDisabled={updateButtonsDisabled}
         />;
     });
 };
