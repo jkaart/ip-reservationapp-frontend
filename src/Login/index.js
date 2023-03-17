@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import PasswordField from "../Components/PasswordField";
 import axios from 'axios';
+import { showError } from '../Components/AlertManager';
 
 const Login = (props) => {
     const { user, updateUser } = props;
@@ -35,9 +36,11 @@ const Login = (props) => {
                 );
                 updateUser(response.data);
                 localStorage.setItem('user', JSON.stringify(response.data));
+                localStorage.setItem('expires', JSON.stringify(new Date().getTime()+1000*60*60));
                 navigate("/");
             } catch (error) {
                 console.log(error.response);
+                showError("Wrong username or password.");
                 //TODO: set error alert
             }
         } 

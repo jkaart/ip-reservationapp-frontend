@@ -21,6 +21,7 @@ function Navigation(props) {
         });
         
         localStorage.removeItem('user');
+        localStorage.removeItem('expires');
     };
 
     return (
