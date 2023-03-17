@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container } from "react-bootstrap";
 import UserResetPassword from './UserResetPassword';
-import UserRequestRemoval from './UserRequestRemoval';
 
 
 function User(props) {
@@ -11,7 +10,6 @@ function User(props) {
     return (
         <Container>
             <UserResetPassword userData={data}/>
-            <UserRequestRemoval userData={data}/>
         </Container>
     );
 }
