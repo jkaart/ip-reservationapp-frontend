@@ -4,7 +4,7 @@ import { DEBUG } from "../config";
 function UserInfo(props) {
     const {name, email, group} = props;
     return (
-        <Row className="mt-4">
+        <Row className="mt-4 mb-5">
             <Col>
                 <Card>
                     <Card.Body>

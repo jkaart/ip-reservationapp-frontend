@@ -1,7 +1,17 @@
 import { Row, Col, Button } from "react-bootstrap";
 
 const CommandPanel = (props) => {
-    const { addTableRow, buttonsDisabled, removeTableRow, renewTableRow } = props;
+    const { tableData, addTableRow, buttonsDisabled, removeTableRow, renewTableRow } = props;
+
+    const handleNewIPButton = () => {
+        addTableRow();
+    }
+    const handleRenewIPButton = () => {
+        renewTableRow();
+    }
+    const handleRemoveIPButton = () => {
+        removeTableRow();
+    }
 
     return (
         <Row>
@@ -9,20 +19,18 @@ const CommandPanel = (props) => {
                 <Button
                     id='newIPButton'
                     variant="primary"
-                    className="mt-4"
                     title="Fetch a new IP-address to be confirmed for reservation."
-                    onClick={() => {addTableRow()}}>
+                    onClick={handleNewIPButton}>
                     New IP-address
                 </Button>
                 &nbsp;
                 <Button
                     id='renewIPButton'
                     variant={buttonsDisabled ? "secondary" : "success"}
-                    className="mt-4"
-                    title="Renew your IP reservation (add a week of reservation time)."
-                    onClick={() => {renewTableRow()}}
+                    className={!tableData.length && "d-none" }
+                    title="Renew your IP reservation (set expiration date 30 days from now)."
+                    onClick={handleRenewIPButton}
                     disabled={buttonsDisabled}>
-                        
                     Renew selected
                 </Button>
             </Col>
@@ -30,11 +38,11 @@ const CommandPanel = (props) => {
                 <Button
                     id='removeIPButton'
                     variant="danger"
-                    className="mt-4 float-end"
+                    className="float-end"
                     disabled={buttonsDisabled}
                     title="Select an IP address to remove"
                     aria-label="Select an IP address to remove"
-                    onClick={removeTableRow}>
+                    onClick={handleRemoveIPButton}>
                     Remove selected
                 </Button>
             </Col>

@@ -48,7 +48,7 @@ function UserResetPassword(data) {
 
     return (
         <Row>
-            <Col md="4" className='mt-4'>
+            <Col md="4">
                 <Form>
                     <h3>Reset password</h3>
                     <Form.Group className="mb-3" controlId="formPassword">
