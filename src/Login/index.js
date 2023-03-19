@@ -4,16 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import PasswordField from "../Components/PasswordField";
 import axios from 'axios';
-import { showError } from '../Components/AlertManager';
+import show from '../utils/AlertManager';
 
 const Login = (props) => {
     const { user, updateUser } = props;
     const navigate = useNavigate();
 
+    const [email, setEmail] = useState()
     const [password, setPassword] = useState();
 
     const handleEmailChange = (event) => {
-        updateUser({ ...user, email: event.target.value });
+        setEmail(event.target.value)
     };
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
@@ -26,7 +27,7 @@ const Login = (props) => {
             try {
                 const response = await axios
                     .post(API_BASE_URL + 'login/', {
-                        email: user.email,
+                        email: email,
                         password: password,
                     }, {
                         headers: {
@@ -40,7 +41,7 @@ const Login = (props) => {
                 navigate("/");
             } catch (error) {
                 console.log(error.response);
-                showError("Wrong username or password.");
+                show.error("Wrong username or password.");
                 //TODO: set error alert
             }
         } 
