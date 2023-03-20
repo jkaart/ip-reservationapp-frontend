@@ -60,7 +60,7 @@ const IPReservationTable = (props) => {
         updateButtonsDisabled();
     });
 
-    const addTableRow = () => {
+    const addTableRow = (amount) => {
         if (DEBUG) {
             const mfr = (min = 0, max = 255) => { return Math.floor(Math.random() * (max - min + 1)) + min; };
             const ip = "10.36." + mfr(1, 3) + "." + mfr();
@@ -76,7 +76,8 @@ const IPReservationTable = (props) => {
                 checked: true
             }]);
         } else {
-            const newIPPromise = getNewIP(user.token);
+            //if (amount && amount < 1 || amount > 5) amount = 1;
+            const newIPPromise = getNewIP(user.token, amount);
             newIPPromise.then((response) => {
                 const newTableRow = Object.values(response.data.savedIP).map(item => ({
                     IP: item.ip,

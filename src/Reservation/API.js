@@ -2,11 +2,12 @@ import show from "../utils/AlertManager";
 import { API_BASE_URL } from "../config";
 import axios from "axios";
 
-export const getNewIP = async (token) => {
+export const getNewIP = async (token, amount) => {
     try {
         return await axios
             .post(API_BASE_URL + 'ips/next-ip', {
                 desc:'User description',
+                amount: amount,
                 networkId:'640e21ac00544bcae339d40e'
             }, {
                 headers: {
