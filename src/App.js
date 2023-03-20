@@ -1,10 +1,11 @@
 import './App.css';
 
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import jwtDecode from "jwt-decode";
 import { DEBUG } from "./config";
+import checkExpiredToken from './utils/TokenExpiration';
 
 import Navigation from "./Components/Navigation";
 import UserInfo from "./Components/UserInfo";
@@ -14,17 +15,16 @@ import Login from "./Login";
 import IPReservationTable from "./Reservation";
 import Admin from "./Admin";
 import User from "./User/";
-import { showError, showInfo } from "./Components/AlertManager";
+import show from "./utils/AlertManager";
 import { ToastContainer, toast } from 'react-toastify';
 import Footer from "./Components/Footer";
 
 const App = () => {
     let storedUser = localStorage.getItem('user');
-    const expiredToken = localStorage.getItem('expires');
+    const expiredToken = checkExpiredToken();
 
-    if (expiredToken && expiredToken < new Date().getTime())
-    {
-        showError('Session expired, please log in again');
+    if (expiredToken && storedUser) {
+        show.error('Session expired, please log in again', 'session_expired');
         storedUser = false;
         localStorage.clear();
     }
@@ -37,32 +37,35 @@ const App = () => {
     });
 
     const updateUser = (userData) => {
-        setUser( {...user, ...userData} );
+        setUser({ ...user, ...userData });
     };
+
+    const role = user.token && jwtDecode(user.token).role;
 
     return (
         <Router>
-            <Navigation login={user.token && jwtDecode(user.token).role} updateUser={updateUser} />
-            <Container style={{"minHeight": 'calc(100vh - 6.5em)'}}> {/*<-- 'full-height' container, -6.5em: hidden footer, -12em: visible footer*/}
-                <ToastContainer position="top-center"/>
-                {user.token && <UserInfo name={user.name} email={user.email} group={user.group}></UserInfo>}
+            <Navigation login={role} updateUser={updateUser} />
+            <Container style={{ "minHeight": 'calc(100vh - 6.5em)' }}> {/*<-- 'full-height' container, -6.5em: hidden footer, -12em: visible footer*/}
+                <ToastContainer position="top-center" />
+                {role && <UserInfo name={user.name} email={user.email} group={user.group}></UserInfo>}
                 <Routes>
-                    <Route exact path="/" element={
-                        user.token || DEBUG ?
-                            <IPReservationTable user={user} />
-                            :
-                            <Login user={user} updateUser={updateUser} />
-                        }
-                    />
-                    <Route path="/admin" element={<Admin />} />
-                    <Route path="/user" element={<User />} />
-                    <Route path="/register" element={<Register />} />
+                    {role || DEBUG ?
+                        <>
+                            <Route exact path="/" element={<IPReservationTable user={user} />} />
+                            <Route path="/admin" element={role === 'admin' ? <Admin user={user}/> : <Navigate to="/" />} />
+                            <Route path="/user" element={<User user={user}/>} />
+                        </>
+                        :
+                        <>
+                            <Route exact path="/" element={<Login user={user} updateUser={updateUser} />} />
+                            <Route path="/register" element={<Register />} />
+                        </>
+                    }
+                    <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </Container>
             <Container fluid className="mt-5 bg-dark">
-                <Container>
-                    <Footer />
-                </Container>
+                <Footer />
             </Container>
         </Router>
     );
