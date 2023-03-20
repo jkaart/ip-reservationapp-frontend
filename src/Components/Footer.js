@@ -5,8 +5,8 @@ const Footer = () => {
     return (
         <Row style={{ "minHeight": 3.5+"em"}}>
             <Col>
-                <Button variant="light" className="float-end m-4 p-1" onClick={() => {window.scrollTo({top: 0, behavior: "smooth"})}}>
-                    <FiChevronUp size={'30px'}></FiChevronUp>
+                <Button variant="" className="float-end m-4 p-1 text-light" onClick={() => {window.scrollTo({top: 0, behavior: "smooth"})}}>
+                    <FiChevronUp size={'1.7em'}></FiChevronUp>
                 </Button>
             </Col>
         </Row>
