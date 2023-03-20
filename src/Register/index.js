@@ -28,7 +28,7 @@ const Register = () => {
             try {
                 const response = await axios
                     .post(API_BASE_URL + 'users/', {
-                        name: "     ",
+                        name: newEmail.split('@')[0],
                         email: newEmail,
                         password: newPassword,
                         group: newGroup,
@@ -64,7 +64,7 @@ const Register = () => {
                     <Form.Label className="text-uppercase fs-2 mt-2">Register</Form.Label>
                     <Form.Group>
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" onChange={handleNewEmail} placeholder="user@esedulainen.fi" />
+                        <Form.Control type="email" onChange={handleNewEmail} placeholder="firstname.surname@esedulainen.fi" />
                         <Form.Text className="text-muted">
                             Enter your Esedulainen-email
                         </Form.Text>
