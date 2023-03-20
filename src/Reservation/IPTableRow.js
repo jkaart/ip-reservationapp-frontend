@@ -2,32 +2,35 @@ import { Row, Col, Button, Badge } from "react-bootstrap";
 import { FiSquare, FiCheckSquare, FiCopy } from "react-icons/fi";
 import { IconContext } from "react-icons";
 import Description from "./IPTableRowDescription";
-import { showInfo } from "../Components/AlertManager";
+import show from "../utils/AlertManager";
 
 export const IPTableRow = (props) => {
     const { index, rowData, updateTableData, updateButtonsDisabled } = props;
 
     const handleToggleCheckbox = (e) => {
-        updateTableData(index, 'checked', !rowData.checked);
+        updateTableData('checked', !rowData.checked, index);
         updateButtonsDisabled();
     };
     return (
-        <IconContext.Provider value={{ size: "30px" }}>
-            <Row className="border rounded m-0 p-2" index={index} key={rowData.id}>
-                <Col sm='3' md='2'>
+        <IconContext.Provider value={{ size: "1.5em" }}>
+            <Row className="border rounded m-0 mt-1" index={index} key={rowData.id} >
+                <Col sm='3' md='2' className="p-0">
                     <Button variant="light" className="w-100 p-2" title="Copy To Clipboard" onClick={(e) => {copyToClipboard(e.target.textContent)}}>
                         {rowData.IP}
                     </Button>
                 </Col>
-                <Col sm='3'>
-                    <span className="align-middle pt-2">
+                <Col sm='3' title={new Date(rowData.endDate).toLocaleString()}>
+                    <span className="align-middle pt-2 float-start">
                         {expirationTime(rowData.endDate)}
                     </span>
+                    <span className="align-middle pt-2 float-end">
+                        {new Date(rowData.endDate).toLocaleDateString()}
+                    </span>
                 </Col>
-                <Col sm='5' md='6'>
+                <Col xs='10' sm='5' md='6'>
                     <Description description={rowData.description} updateTableData={updateTableData} index={index} />
                 </Col>
-                <Col sm='1' className=''>
+                <Col xs='2' sm='1' className=''>
                     <Button id={index} variant="" className="p-1 float-end" onClick={handleToggleCheckbox}>
                         {rowData.checked ? <FiCheckSquare /> : <FiSquare />}
                     </Button>
@@ -58,5 +61,7 @@ function expirationTime(expirationDate) {
 function copyToClipboard(text)
 {
     navigator.clipboard.writeText(text);
-    showInfo('Copied to clipboard: ' + text, {timeOut: 1500});
+    const msg = 'Copied to clipboard: ' + text;
+    show.info(msg, 'copy', msg, 1500);
+    //showInfo(msg, {toastID: "copy", timeOut: 1500, override: msg});
 }

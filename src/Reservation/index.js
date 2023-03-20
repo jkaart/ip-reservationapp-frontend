@@ -4,9 +4,8 @@ import { Row, Col } from "react-bootstrap";
 
 import IPTableHeader from "./IPTableHeader";
 import IPTableRows from "./IPTableRows";
-import IPTableFooter from "./IPTableFooter";
 import { getNewIP, IPTablePopulate, removeIP, renewIP } from "./API";
-import { showInfo, showSuccess } from "../Components/AlertManager";
+import show from "../utils/AlertManager";
 import CommandPanel from "./CommandPanel";
 
 const IPReservationTable = (props) => {
@@ -33,10 +32,22 @@ const IPReservationTable = (props) => {
         });
     }, [user.token]);
 
-
-    const updateTableData = (index, field, value) => {
+    const updateTableData = (field, value, index = null) => {
         const updatedData = [...tableData];
-        updatedData[index][field] = value;
+        if (index === null) {
+            // update all rows
+            updatedData.forEach(row => {
+                row[field] = value;
+            });
+        } else if (Array.isArray(index)) {
+            // update multiple rows
+            index.forEach(i => {
+                updatedData[i][field] = value;
+            });
+        } else {
+            // update single row
+            updatedData[index][field] = value;
+        }
         setTableData(updatedData);
     };
 
@@ -67,15 +78,15 @@ const IPReservationTable = (props) => {
         } else {
             const newIPPromise = getNewIP(user.token);
             newIPPromise.then((response) => {
-                const newTableRow = Object.values(response.data).map(item => ({
+                const newTableRow = Object.values(response.data.savedIP).map(item => ({
                     IP: item.ip,
                     endDate: item.expirationDate,
                     description: item.desc,
                     checked: true,
                     id: item.id
                 }));
-                setTableData([...tableData, newTableRow[1]]);
-                showSuccess(newTableRow[1].IP + " added! Confirm with 'Renew selected'", { toastID: "newIPSuccess" })
+                setTableData(tableData.concat(newTableRow));
+                show.success(newTableRow.length + " IP(s) added! Confirm with 'Renew selected'", "newIPSuccess");
             }).catch((error) => {
                 console.log(error);
             });
@@ -94,12 +105,12 @@ const IPReservationTable = (props) => {
         const days = 30;
 
         tableData.forEach((item, index) => {
-            renewIP(user.token, item.id, item.description, days);
-            const newDate = new Date(Date.now() + days * 86400 * 1000).toISOString();
-            console.log(item);
-            console.log(newDate);
-            updateTableData(index, 'endDate', newDate);
-            updateTableData(index, 'checked', false);
+            if(item.checked) {
+                renewIP(user.token, item.id, item.description, days);
+                const newDate = new Date(Date.now() + days * 86400 * 1000).toISOString();
+                updateTableData('endDate', newDate, index);
+                updateTableData('checked', false, index);
+            }
         });
     }
 
@@ -112,24 +123,25 @@ const IPReservationTable = (props) => {
             <Row>
                 <Col>
                     <CommandPanel
+                        tableData={tableData}
                         addTableRow={addTableRow}
                         buttonsDisabled={buttonsDisabled}
-                        removeTableRow={removeTableRow} 
+                        removeTableRow={removeTableRow}
                         renewTableRow={renewTableRow}
                     />
                 </Col>
             </Row>
             <Row className="mt-4">
                 <Col>
-                    <IPTableHeader></IPTableHeader>
+                    <IPTableHeader
+                        tableData={tableData}
+                        updateTableData={updateTableData}
+                    />
                     <IPTableRows
                         tableData={tableData}
                         updateTableData={updateTableData}
                         updateButtonsDisabled={updateButtonsDisabled}
-                    >
-                    </IPTableRows>
-                    <IPTableFooter tableDataLength={tableData.length}>
-                    </IPTableFooter>
+                    />
                 </Col>
             </Row>
         </>

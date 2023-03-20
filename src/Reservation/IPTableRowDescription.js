@@ -39,12 +39,19 @@ function Description(props) {
             setEditing(true);
             setText(oldText);
         }
+        if (e.code === "Enter" || e.code === "NumpadEnter")
+        {
+            setEditing(true);
+            setText(text);
+            setOldText(text);
+            setConfirmClicked(true);
+        }
     };
 
     useEffect(() => {
         if(confirmClicked)
         {
-            updateTableData(index, 'description', text);
+            updateTableData('description', text, index);
             setConfirmClicked(false);
         }
     }, [confirmClicked]);
@@ -53,11 +60,10 @@ function Description(props) {
     return (
         <>
             <div className="d-flex">
-                <FormControl type="text" className={editing?"form-control-plaintext":""} value={text} placeholder="Description of usage" onChange={handleInputChange} onKeyUp={handleKeyUp} readOnly={editing}  />
-                &nbsp;&nbsp;
                 <Button variant="none" className={editing?"p-1":"d-none"} onClick={handleEditClick}> <FiEdit /> </Button>
-                <Button variant="success" className={editing?"d-none":"p-1"} onClick={handleConfirmClick}> <FiCheck /> </Button>
-                <Button variant="danger" className={editing?"d-none":"p-1"} onClick={handleCancelClick}> <FiX /> </Button>
+                <Button variant="" className={editing?"d-none":"p-1"} onClick={handleConfirmClick}> <FiCheck /> </Button>
+                <Button variant="" className={editing?"d-none":"p-1"} onClick={handleCancelClick}> <FiX /> </Button>
+                <FormControl type="text" className={editing?"form-control-plaintext":""} value={text} placeholder="Description of usage" onChange={handleInputChange} onKeyUp={handleKeyUp} readOnly={editing} />
             </div>
         </>
     );

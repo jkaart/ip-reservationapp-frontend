@@ -1,4 +1,4 @@
-import { showError } from "../Components/AlertManager";
+import show from "../utils/AlertManager";
 import { API_BASE_URL } from "../config";
 import axios from "axios";
 
@@ -16,8 +16,7 @@ export const getNewIP = async (token) => {
             }
         );
     } catch (error) {
-        console.log(error.response);
-        //TODO: set error alert
+        show.error("Could not fetch new IP! Contact administrator if issue persists.");
     }
 };
 
@@ -34,8 +33,7 @@ export const IPTablePopulate = async (token) => {
 
         return response.data.ips;
     } catch (error) {
-        console.log(error.response);
-        //TODO: set error alert
+        show.error("Could not fetch IP table! Contact administrator if issue persists.");
     }
 }
 
@@ -52,11 +50,9 @@ export const renewIP = async (token, id, description, days) => {
                 }
             }
         );
-
-        return response.data.ips;
+        show.success("IP renewed!", 'renew', 'IPs renewed!', 2000);
     } catch (error) {
-        showError("IP removal unsuccessful. Contact administrator if issue persists.");
-        //TODO: set error alert
+        show.error("IP update unsuccessful. Contact administrator if issue persists.");
     }
 }
 
@@ -70,10 +66,8 @@ export const removeIP = async (token, id) => {
                 }
             }
         );
-
-        return response.data.ips;
+        show.success("IP removed!", 'remove', 'IPs removed!', 2000);
     } catch (error) {
-        showError("IP removal unsuccessful. Contact administrator if issue persists.");
-        //TODO: set error alert
+        show.error("IP removal unsuccessful. Contact administrator if issue persists.");
     }
 }
