@@ -46,6 +46,7 @@ function Description(props) {
             setText(text);
             setOldText(text);
             setConfirmClicked(true);
+            updateTableRowDescription(text, index);
         }
     };
 
