@@ -5,7 +5,7 @@ import Description from "./IPTableRowDescription";
 import show from "../utils/AlertManager";
 
 export const IPTableRow = (props) => {
-    const { index, rowData, updateTableData, updateButtonsDisabled } = props;
+    const { index, rowData, updateTableData, updateButtonsDisabled, updateTableRowDescription } = props;
 
     const handleToggleCheckbox = (e) => {
         updateTableData('checked', !rowData.checked, index);
@@ -28,7 +28,7 @@ export const IPTableRow = (props) => {
                     </span>
                 </Col>
                 <Col xs='10' sm='5' md='6'>
-                    <Description description={rowData.description} updateTableData={updateTableData} index={index} />
+                    <Description description={rowData.description} updateTableData={updateTableData} index={index} updateTableRowDescription={updateTableRowDescription} />
                 </Col>
                 <Col xs='2' sm='1' className=''>
                     <Button id={index} variant="" className="p-1 float-end" onClick={handleToggleCheckbox}>
@@ -62,6 +62,6 @@ function copyToClipboard(text)
 {
     navigator.clipboard.writeText(text);
     const msg = 'Copied to clipboard: ' + text;
-    show.info(msg, 'copy', msg, 1500);
+    show.info(msg, 'copy', null, 1500);
     //showInfo(msg, {toastID: "copy", timeOut: 1500, override: msg});
 }

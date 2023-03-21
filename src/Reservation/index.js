@@ -4,7 +4,7 @@ import { Row, Col } from "react-bootstrap";
 
 import IPTableHeader from "./IPTableHeader";
 import IPTableRows from "./IPTableRows";
-import { getNewIP, IPTablePopulate, removeIP, renewIP } from "./API";
+import { getNewIP, IPTablePopulate, removeIP, renewIP, updateDescription } from "./API";
 import show from "../utils/AlertManager";
 import CommandPanel from "./CommandPanel";
 
@@ -60,7 +60,7 @@ const IPReservationTable = (props) => {
         updateButtonsDisabled();
     });
 
-    const addTableRow = (amount) => {
+    const addTableRow = (amount, ipDescription) => {
         if (DEBUG) {
             const mfr = (min = 0, max = 255) => { return Math.floor(Math.random() * (max - min + 1)) + min; };
             const ip = "10.36." + mfr(1, 3) + "." + mfr();
@@ -76,8 +76,7 @@ const IPReservationTable = (props) => {
                 checked: true
             }]);
         } else {
-            //if (amount && amount < 1 || amount > 5) amount = 1;
-            const newIPPromise = getNewIP(user.token, amount);
+            const newIPPromise = getNewIP(user.token, amount, ipDescription);
             newIPPromise.then((response) => {
                 const newTableRow = Object.values(response.data.savedIP).map(item => ({
                     IP: item.ip,
@@ -103,7 +102,7 @@ const IPReservationTable = (props) => {
     };
 
     const renewTableRow = () => {
-        const days = 30;
+        const days = 30;        //here's the day renewal update constant - here's the day renewal update constant - here's the day renewal update constant - here's the day renewal update constant!!!!
 
         tableData.forEach((item, index) => {
             if(item.checked) {
@@ -113,6 +112,10 @@ const IPReservationTable = (props) => {
                 updateTableData('checked', false, index);
             }
         });
+    }
+
+    const updateTableRowDescription = (description, index) => {
+        updateDescription(user.token, tableData[index].id, description);
     }
 
     if (isLoading) {
@@ -129,6 +132,7 @@ const IPReservationTable = (props) => {
                         buttonsDisabled={buttonsDisabled}
                         removeTableRow={removeTableRow}
                         renewTableRow={renewTableRow}
+                        user={user}
                     />
                 </Col>
             </Row>
@@ -142,6 +146,7 @@ const IPReservationTable = (props) => {
                         tableData={tableData}
                         updateTableData={updateTableData}
                         updateButtonsDisabled={updateButtonsDisabled}
+                        updateTableRowDescription={updateTableRowDescription}
                     />
                 </Col>
             </Row>

@@ -3,7 +3,7 @@ import { Button, FormControl } from "react-bootstrap";
 import { FiCheck, FiEdit, FiX } from "react-icons/fi";
 
 function Description(props) {
-    const {description, updateTableData, index} = props;
+    const {description, updateTableData, index, updateTableRowDescription} = props;
     const [editing, setEditing] = useState(true);
     // Use two separate state variables for current and old text
     const [text, setText] = useState(description);
@@ -17,6 +17,7 @@ function Description(props) {
         setText(text);
         setOldText(text);
         setEditing(true);
+        updateTableRowDescription(text, index);
     };
     const handleCancelClick = () => {
         // Reset the current text to match the old text
