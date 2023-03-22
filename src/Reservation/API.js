@@ -5,7 +5,7 @@ import axios from "axios";
 export const getNewIP = async (token, amount, ipDescription) => {
     console.log(ipDescription)
     try {
-        return await axios
+        return (await axios
             .post(API_BASE_URL + 'ips/next-ip', {
                 desc: ipDescription,
                 amount: amount,
@@ -15,8 +15,8 @@ export const getNewIP = async (token, amount, ipDescription) => {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token
                 }
-            }
-            );
+            })
+        )
     } catch (error) {
         show.error("Could not reserve IP(s). If issue persists, contact administrator. Error: '" + error.response.data.message + "'", "newIPError", null, 10000);
     }
@@ -24,16 +24,14 @@ export const getNewIP = async (token, amount, ipDescription) => {
 
 export const IPTablePopulate = async (token) => {
     try {
-        const response = await axios
+        return (await axios
             .get(API_BASE_URL + 'users/user', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token
                 }
-            }
-            );
-
-        return response.data.ips;
+            })
+        )
     } catch (error) {
         show.error("Could not fetch IP table! Contact administrator if issue persists.");
     }
@@ -90,4 +88,14 @@ export const updateDescription = async (token, id, description) => {
     } catch (error) {
         show.error("IP description update unsuccessful. Contact administrator if issue persists.");
     }
+}
+
+export const getActiveNetworkRange = async (token) => {
+    return await axios
+        .get(API_BASE_URL + 'admin/network/', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        })
 }
