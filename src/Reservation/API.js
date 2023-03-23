@@ -1,6 +1,7 @@
 import show from "../utils/AlertManager";
 import { API_BASE_URL } from "../config";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 export const getNewIP = async (token, amount, ipDescription) => {
     console.log(ipDescription)
@@ -23,9 +24,10 @@ export const getNewIP = async (token, amount, ipDescription) => {
 };
 
 export const IPTablePopulate = async (token) => {
+    console.log(token)
     try {
         return (await axios
-            .get(API_BASE_URL + 'users/user', {
+            .get(API_BASE_URL + 'ips/' +jwtDecode(token).id , {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token
@@ -56,16 +58,16 @@ export const renewIP = async (token, id, description, days) => {
     }
 }
 
-export const removeIP = async (token, id) => {
+export const removeIP = async (token, ids) => {
     try {
         const response = await axios
-            .delete(API_BASE_URL + 'ips/' + id, {
+            .delete(API_BASE_URL + 'ips/' + ids.toString(), {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token
                 }
             }
-            );
+        );
         show.success("IP removed!", 'remove', 'IPs removed!', 2000);
     } catch (error) {
         show.error("IP removal unsuccessful. Contact administrator if issue persists.");

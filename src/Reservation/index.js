@@ -17,17 +17,20 @@ const IPReservationTable = (props) => {
     useEffect(() => {
         const IPTablePromise = IPTablePopulate(user.token);
 
-        IPTablePromise.then((data) => {
-            const formattedData = data.map(item => ({
+        IPTablePromise.then((response) => {
+
+            const formattedData = response.data.map(item => ({
                 IP: item.ip,
                 endDate: item.expirationDate,
                 description: item.desc,
                 checked: false,
-                id: item.id
+                id: item.id,
+                userID: user
             }));
             setTableData(formattedData);
             setIsLoading(false);
         }).catch((error) => {
+           
             setIsLoading(false);
         });
     }, [user.token]);
@@ -94,10 +97,12 @@ const IPReservationTable = (props) => {
     };
     const removeTableRow = () => {
         const filteredTables = tableData.filter(row => row.checked);
-
+        const ids = [];
         filteredTables.forEach((item) => {
-            removeIP(user.token, item.id);
+            ids.push(item.id)
         });
+        removeIP(user.token, ids);
+
         setTableData(tableData.filter(row => !row.checked));
     };
 
