@@ -1,4 +1,4 @@
-import { API_BASE_URL, DEBUG } from '../config';
+import { API_BASE_URL } from '../config';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Col, Form, Row } from 'react-bootstrap';
@@ -7,7 +7,7 @@ import axios from 'axios';
 import show from '../utils/AlertManager';
 
 const Login = (props) => {
-    const { user, updateUser } = props;
+    const { updateUser } = props;
     const navigate = useNavigate();
 
     const [email, setEmail] = useState()
@@ -22,37 +22,25 @@ const Login = (props) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        if (!DEBUG) {
-            try {
-                const response = await axios
-                    .post(API_BASE_URL + 'login/', {
-                        email: email,
-                        password: password,
-                    }, {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
+        try {
+            const response = await axios
+                .post(API_BASE_URL + 'login/', {
+                    email: email,
+                    password: password,
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
                     }
+                }
                 );
-                updateUser(response.data);
-                localStorage.setItem('user', JSON.stringify(response.data));
-                localStorage.setItem('expires', JSON.stringify(new Date().getTime()+1000*60*60));
-                navigate("/");
-            } catch (error) {
-                console.log(error.response);
-                show.error("Wrong username or password.");
-                //TODO: set error alert
-            }
-        } 
-        else {
-            await new Promise((resolve) => {
-                setTimeout(() => {
-                    updateUser({ ...user, token: 'debug_success'});
-                    resolve();
-                }, 1000);
-            });
-        };
+            updateUser(response.data);
+            localStorage.setItem('user', JSON.stringify(response.data));
+            localStorage.setItem('expires', JSON.stringify(new Date().getTime() + 1000 * 60 * 60));
+            navigate("/");
+        } catch (error) {
+            console.log(error.response);
+            show.error("Wrong username or password.");
+        }
     };
 
     return (

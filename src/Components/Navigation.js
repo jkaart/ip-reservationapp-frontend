@@ -1,4 +1,3 @@
-import { DEBUG } from "../config";
 import React from "react";
 import { FiLogOut } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
@@ -10,7 +9,6 @@ import Navbar from 'react-bootstrap/Navbar';
 function Navigation(props) {
     let login = props.login;
     const {updateUser} = props;
-    if(login === 'debug_success' && DEBUG) login = 'admin';
 
     const handleLogout = () => {
         updateUser({
@@ -29,11 +27,11 @@ function Navigation(props) {
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand as={Link} to="/" href="#home">Esedu IP Reserve {DEBUG && "#DEBUG"}</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/" href="#home">Esedu IP Reserve</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        { DEBUG || login === 'admin' && !(location === '/admin') && <Nav.Link as={Link} to="/admin">Admin Panel</Nav.Link> }
+                        { login === 'admin' && !(location === '/admin') && <Nav.Link as={Link} to="/admin">Admin Panel</Nav.Link> }
                         { login === 'admin' && location === '/admin' && <Nav.Link as={Link} to="/">IP Reservations</Nav.Link> }
                     </Nav>
                     <Nav align="end">

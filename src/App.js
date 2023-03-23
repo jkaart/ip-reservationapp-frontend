@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import jwtDecode from "jwt-decode";
-import { DEBUG } from "./config";
 import checkExpiredToken from './utils/TokenExpiration';
 
 import Navigation from "./Components/Navigation";
@@ -40,7 +39,13 @@ const App = () => {
         setUser({ ...user, ...userData });
     };
 
-    const role = user.token && jwtDecode(user.token).role;
+    const role = user.token && jwtDecode(user.token).role !== 'null';
+    console.log(role)
+    if (storedUser && !role) 
+    {
+        show.error('No access privileges. Please wait for an admin to confirm your account.', null, null, 10000);
+        localStorage.clear();
+    }
 
     return (
         <Router>
@@ -49,7 +54,7 @@ const App = () => {
                 <ToastContainer position="top-center" />
                 {role && <UserInfo name={user.name} email={user.email} group={user.group}></UserInfo>}
                 <Routes>
-                    {role || DEBUG ?
+                    {role ?
                         <>
                             <Route exact path="/" element={<IPReservationTable user={user} />} />
                             <Route path="/admin" element={role === 'admin' ? <Admin user={user}/> : <Navigate to="/" />} />

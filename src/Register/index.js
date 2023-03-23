@@ -1,4 +1,4 @@
-import { API_BASE_URL, DEBUG } from '../config';
+import { API_BASE_URL } from '../config';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Col, Form, Row } from 'react-bootstrap';
@@ -24,37 +24,26 @@ const Register = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!DEBUG) {
-            try {
-                const response = await axios
-                    .post(API_BASE_URL + 'users/', {
-                        name: newEmail.split('@')[0],
-                        email: newEmail,
-                        password: newPassword,
-                        group: newGroup,
-                        role: 'user' //to be removed
-                    }, {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
+        try {
+            const response = await axios
+                .post(API_BASE_URL + 'users/', {
+                    name: newEmail.split('@')[0],
+                    email: newEmail,
+                    password: newPassword,
+                    group: newGroup,
+                    role: 'user' //to be removed
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
                     }
+                }
                 );
 
-                navigate("/");
-            } catch (error) {
-                console.log(error.response);
-                //TODO: set error alert
-            }
-            
-        } else {
-            /*await new Promise((resolve) => {
-                setTimeout(() => {
-                    data.token = 'debug_success';
-                    resolve();
-                }, 1000);
-            });*/
-            console.log("DEBUG: register disabled and does nothing");
-        };
+            navigate("/");
+        } catch (error) {
+            console.log(error.response);
+            //TODO: set error alert
+        }
     };
 
     return (
