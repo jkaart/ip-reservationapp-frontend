@@ -3,20 +3,19 @@ import { API_BASE_URL } from "../config";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
-export const getNewIP = async (token, amount, ipDescription) => {
-    console.log(ipDescription)
+export const getNewIP = async (token, ip, ipDescription, specificIP) => {
     try {
+        const body = specificIP ? { ip: ip } : { amount: ip };
+        body.desc = ipDescription;
         return (await axios
-            .post(API_BASE_URL + 'ips/next-ip', {
-                desc: ipDescription,
-                amount: amount,
-                networkId: '640e21ac00544bcae339d40e'
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
-                }
-            })
+            .post(API_BASE_URL + (specificIP ? 'ips/' : 'ips/next-ip'),
+                body,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    }
+                })
         )
     } catch (error) {
         show.error("Could not reserve IP(s). If issue persists, contact administrator. Error: '" + error.response.data.message + "'", "newIPError", null, 10000);
@@ -24,10 +23,10 @@ export const getNewIP = async (token, amount, ipDescription) => {
 };
 
 export const IPTablePopulate = async (token) => {
-    console.log(token)
+    //console.log(token)
     try {
         return (await axios
-            .get(API_BASE_URL + 'ips/' +jwtDecode(token).id , {
+            .get(API_BASE_URL + 'ips/' + jwtDecode(token).id, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token
@@ -39,14 +38,12 @@ export const IPTablePopulate = async (token) => {
     }
 }
 
-export const renewIP = async (token, id, description, days) => {
+export const renewIP = async (token, ids) => {
     try {
         const response = await axios
-            .put(API_BASE_URL + 'ips/next-ip/' + id, {
-                'desc': description,
-                'TTL': days
-            }, {
-                headers: {
+            .put(API_BASE_URL + 'ips/', 
+                ids, 
+                { headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token
                 }
@@ -67,8 +64,8 @@ export const removeIP = async (token, ids) => {
                     'Authorization': 'Bearer ' + token
                 }
             }
-        );
-        show.success("IP removed!", 'remove', 'IPs removed!', 2000);
+            );
+        show.success("IP(s) removed!");
     } catch (error) {
         show.error("IP removal unsuccessful. Contact administrator if issue persists.");
     }

@@ -7,12 +7,14 @@ import IPTableRows from "./IPTableRows";
 import { getNewIP, IPTablePopulate, removeIP, renewIP, updateDescription } from "./API";
 import show from "../utils/AlertManager";
 import CommandPanel from "./CommandPanel";
+import jwtDecode from "jwt-decode";
 
 const IPReservationTable = (props) => {
     const { user } = props;
     const [tableData, setTableData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [buttonsDisabled, setButtonsDisabled] = useState(true);
+    const role = jwtDecode(user.token).role;
 
     useEffect(() => {
         const IPTablePromise = IPTablePopulate(user.token);
@@ -63,7 +65,7 @@ const IPReservationTable = (props) => {
         updateButtonsDisabled();
     });
 
-    const addTableRow = (amount, ipDescription) => {
+    const addTableRow = (amount, ipDescription, specificIP) => {
         if (DEBUG) {
             const mfr = (min = 0, max = 255) => { return Math.floor(Math.random() * (max - min + 1)) + min; };
             const ip = "10.36." + mfr(1, 3) + "." + mfr();
@@ -79,17 +81,21 @@ const IPReservationTable = (props) => {
                 checked: true
             }]);
         } else {
-            const newIPPromise = getNewIP(user.token, amount, ipDescription);
+            const newIPPromise = getNewIP(user.token, amount, ipDescription, specificIP);
             newIPPromise.then((response) => {
-                const newTableRow = Object.values(response.data.savedIP).map(item => ({
-                    IP: item.ip,
-                    endDate: item.expirationDate,
-                    description: item.desc,
-                    checked: true,
-                    id: item.id
-                }));
-                setTableData(tableData.concat(newTableRow));
-                show.success(newTableRow.length + " IP(s) added! Confirm with 'Renew selected'", "newIPSuccess");
+                if(response)
+                {
+                    const savedIP = (response.data.savedIP ? response.data.savedIP : new Array(response.data));
+                    const newTableRow = Object.values(savedIP).map(item => ({
+                        IP: item.ip,
+                        endDate: item.expirationDate,
+                        description: item.desc,
+                        checked: !specificIP,
+                        id: item.id
+                    }));
+                    setTableData(tableData.concat(newTableRow));
+                    show.success(newTableRow.length + " IP(s) added! Confirm with 'Renew selected'", "newIPSuccess");
+                }
             }).catch((error) => {
                 console.log(error);
             });
@@ -107,11 +113,17 @@ const IPReservationTable = (props) => {
     };
 
     const renewTableRow = () => {
-        const days = 30;        //here's the day renewal update constant - here's the day renewal update constant - here's the day renewal update constant - here's the day renewal update constant!!!!
+        const days = (role === 'admin' ? 10000 : 30);        //here's the day renewal update constant - here's the day renewal update constant - here's the day renewal update constant - here's the day renewal update constant!!!!
+
+        const filteredTables = tableData.filter(row => row.checked);
+        const ids = [];
+        filteredTables.forEach((item) => {
+            ids.push({_id: item.id, TTL:days})
+        });
+        renewIP(user.token, ids);
 
         tableData.forEach((item, index) => {
             if(item.checked) {
-                renewIP(user.token, item.id, item.description, days);
                 const newDate = new Date(Date.now() + days * 86400 * 1000).toISOString();
                 updateTableData('endDate', newDate, index);
                 updateTableData('checked', false, index);

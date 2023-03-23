@@ -34,7 +34,7 @@ const CommandPanel = (props) => {
     const handleNewIPButton = (e) => {
         if (ipDescription.length > 4) {
             setNewIPButtonDisabled(true);
-            addTableRow(ipAmount, ipDescription);
+            addTableRow(ipAmount === 0 ? specificIP : ipAmount, ipDescription, !ipAmount);
             setValidity(true);
             setIpDescription("");
         }
@@ -53,8 +53,8 @@ const CommandPanel = (props) => {
         removeTableRow();
         if (newIPButtonDisabled) setNewIPButtonDisabled(false);
     }
-    const handleSpecificIPChange = () => {
-        setSpecificIP(specificIP);
+    const handleSpecificIPChange = (e) => {
+        setSpecificIP(e.target.value);
     }
 
     const popover_ip = (
