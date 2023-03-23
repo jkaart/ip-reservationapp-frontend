@@ -1,3 +1,18 @@
+# How to use
+
+## Steps to usage
+### 1.
+Clone repository to your chosen directory
+### 2.
+Run 'npm i' in your chosen directory root to install and update packages
+### 3.
+Copy ./src/config_default.js to ./src/config.js and set BASE_API_URL to point to your chosen backend URL
+### 4.
+If not already done, get and setup backend from https://github.com/PetteriHellman/ipbackend1
+### 5.
+Run ip_varaus with 'npm start' and login with your first created admin credentials to test if that the software functions
+
+.....................
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
