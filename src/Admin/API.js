@@ -32,3 +32,20 @@ export const getUsers = async (token) => {
         show.error("Could not get users!");
     }
 }
+
+export const setUserRole = async (token, userid, role) => {
+    try {
+        return await axios
+            .put(API_BASE_URL + 'users/' + userid + '/role/', {
+                role: role
+            },{ 
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            }
+        );
+    } catch (error) {
+        show.error("Could not set user role!");
+    }
+}
