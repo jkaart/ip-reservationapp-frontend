@@ -1,17 +1,27 @@
 import { useEffect, useState } from "react";
 import { getUsers } from "./API";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row, Form } from "react-bootstrap";
 
 const User = (props) => {
     const {id, rowData} = props;
     
     return <>
         <Row id={id} className="border rounded p-2" >
-            <Col>
-                {rowData.email}
+            <Col sm='2' title={rowData.email} className="p-1">
+                <span className="align-middle">
+                    {rowData.name}
+                </span>
             </Col>
-            <Col>
-                {rowData.role}
+            <Col sm='5' md='3' lg='2'>
+                <Form.Select defaultValue={rowData.role} className={rowData.role === 'admin' ? 'text-primary' : rowData.role === 'null' && 'text-warning'}>
+                    <option value='admin' className="text-primary">Admin</option>
+                    <option value='user' className="text-body">User</option>
+                    <option value='null' className="text-warning">No access</option>
+                </Form.Select>
+                {/* <Button variant="primary">Admin</Button>
+                <Button variant="success">User</Button>
+                <Button variant="warning">No access</Button>
+                {rowData.role} */}
             </Col>
             <Col>
                 buttons
