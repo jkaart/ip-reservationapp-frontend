@@ -1,5 +1,5 @@
-import { Row, Col, Button, Badge } from "react-bootstrap";
-import { FiSquare, FiCheckSquare, FiCopy } from "react-icons/fi";
+import { Row, Col, Button } from "react-bootstrap";
+import { FiSquare, FiCheckSquare } from "react-icons/fi";
 import { IconContext } from "react-icons";
 import Description from "./IPTableRowDescription";
 import show from "../utils/AlertManager";
@@ -45,6 +45,10 @@ function expirationTime(expirationDate) {
     const now = new Date().getTime();
 
     const timeDiff = exp - now;
+    
+    const remainingYears = Math.round(timeDiff / (365 * 1000 * 60 * 60 * 24));
+    if (remainingYears > 0)
+        return remainingYears + " years";
 
     const remainingDays = Math.round(timeDiff / (1000 * 60 * 60 * 24));
     if (remainingDays > 0)
@@ -55,7 +59,7 @@ function expirationTime(expirationDate) {
         return remainingHours + " hours";
 
     const remainingMinutes = Math.round((timeDiff / (1000 * 60)) % 60);
-    return remainingMinutes < 1 ? "NOW" : remainingMinutes + " minutes";
+    return <span className="text-danger"> {remainingMinutes < 1 ? "NOW" : remainingMinutes + " minutes"} </span>
 }
 
 function copyToClipboard(text)
