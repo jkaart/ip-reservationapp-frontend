@@ -14,15 +14,17 @@ const CommandPanel = (props) => {
     const [specificIP, setSpecificIP] = useState("");
     const [networkMin, setNetworkMin] = useState();
     const [networkMax, setNetworkMax] = useState();
+    const role = jwtDecode(user.token).role; 
 
     useEffect(() => {
-        getActiveNetworkRange(user.token).then((response) => {
-            setNetworkMin(response.data.find(network => network.networkActive).hostMin);
-            setNetworkMax(response.data.find(network => network.networkActive).hostMax);
-        })
-    },[user.token]);
+        if (role === 'admin') {
+            getActiveNetworkRange(user.token).then((response) => {
+                setNetworkMin(response.data.find(network => network.networkActive).hostMin);
+                setNetworkMax(response.data.find(network => network.networkActive).hostMax);
+            })
+        };
+    }, [user.token,role]);
 
-    const role = jwtDecode(user.token).role;
     const handleIPDescriptionChange = (e) => {
         setIpDescription(e.target.value);
         if (newIPButtonDisabled) setNewIPButtonDisabled(false);
