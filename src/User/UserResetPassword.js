@@ -5,13 +5,7 @@ import { useState } from 'react';
 
 
 
-function UserResetPassword(data) {
-    //const [name, setName] = useState("");
-    //const [email, setEmail] = useState("");
-    //const [group, setGroup] = useState("");
-
-    data = "";
-
+function UserResetPassword() {
     const [newPass1, setNewPass1] = useState('');
     const [newPass2, setNewPass2] = useState('');
     const [currentPass, setCurrentPass] = useState('');
@@ -53,10 +47,10 @@ function UserResetPassword(data) {
                     <h3>Reset password</h3>
                     <Form.Group className="mb-3" controlId="formPassword">
                         <FormLabel>Current Password</FormLabel>
-                        <PasswordField className="" id="currentPass" onChangeProp={updateCurrentPassword}  />
+                        <PasswordField className="" id="currentPass" onChange={updateCurrentPassword}  />
                         <Form.Label className="mt-3">New Password</Form.Label>
-                        <PasswordField className="mb-1" id="newPass1" onChangeProp={updatePassword1} onBlurProp={handleNewPasswordCheck} />
-                        <PasswordField className="" id="newPass2" onChangeProp={updatePassword2} onBlurProp={handleNewPasswordCheck} />
+                        <PasswordField className="mb-1" id="newPass1" onChange={updatePassword1} onBlur={handleNewPasswordCheck} />
+                        <PasswordField className="" id="newPass2" onChange={updatePassword2} onBlur={handleNewPasswordCheck} />
                         <Form.Text className="text-muted">
                             New password must differ from old.
                         </Form.Text>
