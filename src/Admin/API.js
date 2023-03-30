@@ -33,12 +33,23 @@ export const getUsers = async (token) => {
     }
 }
 
-export const setUserRole = async (token, userid, role) => {
+export const updateUserRole = async (token, userid, role) => {
+    return (await axios
+        .put(API_BASE_URL + 'users/' + userid + '/role/', {
+            role: role
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        })
+    )
+}
+
+export const deleteUser = async (token, userid) => {
     try {
         return await axios
-            .put(API_BASE_URL + 'users/' + userid + '/role/', {
-                role: role
-            },{ 
+            .delete(API_BASE_URL + 'users/' + userid, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token
@@ -46,6 +57,6 @@ export const setUserRole = async (token, userid, role) => {
             }
         );
     } catch (error) {
-        show.error("Could not set user role!");
+        show.error("Could not delete user!");
     }
 }

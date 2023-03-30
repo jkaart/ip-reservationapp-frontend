@@ -26,8 +26,6 @@ const Network = (props) => {
 const NetworkTable = (props) => {
     const {networks} = props;
 
-    console.log(networks);
-
     return networks.map((rowData, index) => {
         return <Network
             key={rowData.id}
